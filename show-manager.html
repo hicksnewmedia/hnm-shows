@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Show Manager — HicksNewMedia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --bg:        #f0f2f5;
+      --surface:   #ffffff;
+      --surface2:  #f4f6f9;
+      --border:    rgba(0,0,0,0.09);
+      --accent:    #5b52e8;
+      --accent-lt: #7b74f0;
+      --green:     #16a34a;
+      --red:       #dc2626;
+      --orange:    #f48022;
+      --gold:      #a97f34;
+      --blue:      #20557b;
+      --white:     #ffffff;
+      --muted:     #6b7280;
+      --text:      #111827;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+      padding: 0 32px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-lt));
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; color: #fff;
+    }
+    .brand-text { font-weight: 700; font-size: 1rem; }
+    .brand-text span { color: var(--muted); font-weight: 400; font-size: 0.85rem; margin-left: 8px; }
+    .brand-text { color: var(--text); }
+
+    .header-tabs {
+      display: flex;
+      gap: 4px;
+    }
+    .tab-btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--muted);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex; align-items: center; gap: 7px;
+    }
+    .tab-btn:hover { background: rgba(0,0,0,0.05); color: var(--text); }
+    .tab-btn.active { background: rgba(91,82,232,0.1); color: var(--accent); }
+    .tab-btn .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+    .dot-tns { background: var(--gold); }
+    .dot-tf  { background: var(--orange); }
+    .dot-dc  { background: var(--blue); }
+
+    /* ===== MAIN LAYOUT ===== */
+    .layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 0;
+      min-height: calc(100vh - 64px);
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      background: #f8f9fb;
+      border-right: 1px solid var(--border);
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .sidebar-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0 12px;
+      margin-bottom: 8px;
+      margin-top: 16px;
+    }
+    .sidebar-label:first-child { margin-top: 0; }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: all 0.15s;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+    }
+    .nav-item:hover { background: rgba(0,0,0,0.05); color: var(--text); }
+    .nav-item.active { background: rgba(91,82,232,0.1); color: var(--accent); }
+    .nav-item i { width: 16px; text-align: center; font-size: 0.85rem; }
+
+    .show-badge {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      margin-left: auto;
+    }
+
+    /* ===== CONTENT ===== */
+    .content {
+      padding: 32px;
+      overflow-y: auto;
+    }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ===== PAGE HEADER ===== */
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .page-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .page-desc { font-size: 0.88rem; color: var(--muted); }
+
+    .show-color-bar {
+      height: 4px;
+      border-radius: 2px;
+      width: 48px;
+      margin-bottom: 12px;
+    }
+
+    /* ===== CARDS / SECTIONS ===== */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .card-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-title i { color: var(--accent); font-size: 0.85rem; }
+    .card-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    /* ===== FORM ELEMENTS ===== */
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 10px 13px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus, textarea:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(91,82,232,0.1); }
+    select option { background: var(--surface); color: var(--text); }
+    textarea { resize: vertical; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .form-group { margin-bottom: 14px; }
+
+    /* ===== STAT INPUT GRID ===== */
+    .stat-inputs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .stat-input-card {
+      background: var(--surface2);
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 14px;
+    }
+    .stat-input-card label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+      font-size: 0.72rem;
+    }
+    .stat-input-card label i { color: var(--accent); }
+
+    /* ===== VIDEO LIST ===== */
+    .video-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+      max-height: 440px;
+      overflow-y: auto;
+    }
+    .video-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--surface2);
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 10px 14px;
+      transition: border-color 0.15s;
+    }
+    .video-item:hover { border-color: rgba(91,82,232,0.35); }
+    .video-item.featured-item { border-color: var(--accent); background: rgba(91,82,232,0.05); }
+
+    .video-thumb-preview {
+      width: 80px;
+      min-width: 80px;
+      aspect-ratio: 16/9;
+      background: #000;
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+    }
+    .video-thumb-preview img { width: 100%; height: 100%; object-fit: cover; }
+    .video-thumb-preview .no-thumb {
+      width: 100%; height: 100%;
+      background: #e5e7eb;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.7rem;
+    }
+
+    .video-details { flex: 1; min-width: 0; }
+    .video-id-display {
+      font-size: 0.7rem;
+      font-family: monospace;
+      color: var(--muted);
+      background: #e9ecf0;
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-bottom: 4px;
+      display: inline-block;
+    }
+    .video-title-display {
+      font-size: 0.88rem;
+      font-weight: 600;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .video-date-display { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+
+    .video-actions {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .feat-toggle {
+      padding: 4px 10px;
+      border-radius: 5px;
+      border: 1px solid #d1d5db;
+      background: #fff;
+      color: var(--muted);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: 'Inter', sans-serif;
+    }
+    .feat-toggle.featured { border-color: var(--accent); color: var(--accent); background: rgba(91,82,232,0.08); }
+    .del-btn {
+      width: 30px; height: 30px;
+      border-radius: 6px;
+      border: 1px solid rgba(231,76,60,0.2);
+      background: transparent;
+      color: rgba(231,76,60,0.6);
+      font-size: 0.78rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s;
+    }
+    .del-btn:hover { background: rgba(231,76,60,0.1); color: var(--red); border-color: var(--red); }
+
+    /* ===== ADD VIDEO FORM ===== */
+    .add-video-form {
+      background: #f8f9fb;
+      border: 1px dashed rgba(91,82,232,0.35);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .add-video-form .form-row {
+      grid-template-columns: 180px 1fr 140px;
+      gap: 10px;
+      align-items: end;
+    }
+    .add-video-form label { color: var(--muted); }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      border: none;
+    }
+    .btn-accent {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-accent:hover { background: var(--accent-lt); transform: translateY(-1px); }
+    .btn-outline {
+      background: #fff;
+      color: var(--text);
+      border: 1px solid #d1d5db;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-success {
+      background: rgba(22,163,74,0.08);
+      color: var(--green);
+      border: 1px solid rgba(22,163,74,0.3);
+    }
+    .btn-success:hover { background: rgba(22,163,74,0.15); }
+    .btn-sm { padding: 7px 14px; font-size: 0.8rem; }
+    .btn-full { width: 100%; justify-content: center; }
+
+    /* ===== DOWNLOAD SECTION ===== */
+    .download-section {
+      background: linear-gradient(135deg, rgba(91,82,232,0.06), rgba(91,82,232,0.02));
+      border: 1px solid rgba(91,82,232,0.2);
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 24px;
+    }
+    .download-section h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .download-section h3 i { color: var(--accent); }
+    .download-section p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .download-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+    .step-num {
+      width: 22px;
+      min-width: 22px;
+      height: 22px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* ===== PREVIEW PANEL ===== */
+    .preview-url {
+      background: #f4f6f9;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-family: monospace;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+
+    /* ===== DEMOGRAPHICS EDITOR ===== */
+    .demo-editor {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .demo-group {
+      background: #f8f9fb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 14px;
+    }
+    .demo-group-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .demo-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .demo-row label {
+      min-width: 68px;
+      margin: 0;
+      font-size: 0.78rem;
+    }
+    .demo-row input[type="number"] {
+      padding: 6px 10px;
+      font-size: 0.82rem;
+    }
+    .demo-row .pct-suffix {
+      font-size: 0.78rem;
+      color: var(--muted);
+      min-width: 20px;
+    }
+
+    /* ===== STATUS TOAST ===== */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--surface);
+      border: 1px solid #e5e7eb;
+      border-left: 3px solid var(--green);
+      border-radius: 8px;
+      padding: 12px 18px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      z-index: 9999;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.25s;
+      pointer-events: none;
+      max-width: 340px;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast i { color: var(--green); margin-right: 8px; }
+
+    /* ===== HELP SECTION ===== */
+    .help-tip {
+      display: flex;
+      gap: 10px;
+      background: rgba(91,82,232,0.05);
+      border: 1px solid rgba(91,82,232,0.18);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 0.82rem;
+      color: #4b5563;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .help-tip i { color: var(--accent); margin-top: 2px; font-size: 0.85rem; min-width: 14px; }
+
+    /* ===== VIDEO ID VALIDATOR ===== */
+    .valid-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 3px;
+      margin-left: 6px;
+    }
+    .valid-badge.ok { background: rgba(22,163,74,0.1); color: var(--green); }
+    .valid-badge.err { background: rgba(220,38,38,0.1); color: var(--red); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 860px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+      .add-video-form .form-row { grid-template-columns: 1fr; }
+      .stat-inputs { grid-template-columns: 1fr; }
+      .demo-editor { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="header-brand">
+    <div class="brand-icon"><i class="fas fa-sliders-h"></i></div>
+    <div class="brand-text">Show Manager <span>Hicks New Media</span></div>
+  </div>
+  <div class="header-tabs">
+    <button class="tab-btn active" onclick="switchShow('tns', this)">
+      <span class="dot dot-tns"></span> Team NO Sleep
+    </button>
+    <button class="tab-btn" onclick="switchShow('tf', this)">
+      <span class="dot dot-tf"></span> tek FORUM
+    </button>
+    <button class="tab-btn" onclick="switchShow('dc', this)">
+      <span class="dot dot-dc"></span> Digital Collective
+    </button>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-label">Manage</div>
+    <button class="nav-item active" onclick="switchSection('videos', this)">
+      <i class="fas fa-play-circle"></i> Videos
+    </button>
+    <button class="nav-item" onclick="switchSection('analytics', this)">
+      <i class="fas fa-chart-bar"></i> Analytics & Stats
+    </button>
+    <button class="nav-item" onclick="switchSection('hosts', this)">
+      <i class="fas fa-users"></i> Co-Host Bios
+    </button>
+    <div class="sidebar-label">Publish</div>
+    <button class="nav-item" onclick="switchSection('export', this)">
+      <i class="fas fa-download"></i> Export Updated Page
+    </button>
+    <button class="nav-item" onclick="switchSection('help', this)">
+      <i class="fas fa-question-circle"></i> How To Use
+    </button>
+  </aside>
+
+  <!-- ===== CONTENT ===== -->
+  <main class="content">
+
+    <!-- VIDEOS PAGE -->
+    <div class="page active" id="section-videos">
+
+      <div class="page-header">
+        <div>
+          <div class="show-color-bar" id="colorBarVideos"></div>
+          <div class="page-title" id="showNameVideos">Team NO Sleep — Videos</div>
+          <div class="page-desc">Add, remove, and feature episodes. Paste a YouTube video ID to add an episode.</div>
+        </div>
+        <a id="previewShowBtn" href="team-no-sleep/" target="_blank" class="btn btn-outline btn-sm">
+          <i class="fas fa-external-link-alt"></i> Preview Show Page
+        </a>
+      </div>
+
+      <div class="help-tip">
+        <i class="fas fa-info-circle"></i>
+        <span>To find a YouTube video ID: go to the video on YouTube, then copy the part after <strong>?v=</strong> in the URL.<br>
+        Example: youtube.com/watch?v=<strong style="color:var(--accent)">dQw4w9WgXcQ</strong> — the ID is <strong style="color:var(--accent)">dQw4w9WgXcQ</strong></span>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><i class="fas fa-video"></i> Episode Library</div>
+        <div class="card-desc" id="videoCountDesc">0 episodes added</div>
+
+        <div class="video-list" id="videoList">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Add Video Form -->
+        <div class="add-video-form">
+          <div style="font-size:0.8rem;font-weight:700;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:6px">
+            <i class="fas fa-plus-circle"></i> Add New Episode
+          </div>
+          <div class="form-row">
+            <div class="form-group" style="margin:0">
+              <label>YouTube Video ID <span id="idValidBadge"></span></label>
+              <input type="text" id="newVideoId" placeholder="e.g. dQw4w9WgXcQ" oninput="validateVideoId(this)" autocomplete="off">
+            </div>
+            <div class="form-group" style="margin:0">
+              <label>Episode Title</label>
+              <input type="text" id="newVideoTitle" placeholder="Episode title...">
+            </div>
+            <div class="form-group" style="margin:0">
+              <label>Date</label>
+              <input type="text" id="newVideoDate" placeholder="e.g. Mar 2026">
+            </div>
+          </div>
+          <div style="margin-top:12px;display:flex;align-items:center;gap:10px">
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;margin:0;font-size:0.82rem;font-weight:500;color:var(--text)">
+              <input type="checkbox" id="newVideoFeatured" style="width:auto;accent-color:var(--accent)">
+              Mark as Featured <span style="font-size:0.72rem;color:var(--muted)">(shows at top with badge)</span>
+            </label>
+            <button class="btn btn-accent btn-sm" style="margin-left:auto" onclick="addVideo()">
+              <i class="fas fa-plus"></i> Add Episode
+            </button>
+          </div>
+          <!-- Thumbnail preview -->
+          <div id="thumbPreview" style="display:none;margin-top:14px">
+            <div style="font-size:0.72rem;color:var(--muted);margin-bottom:6px">THUMBNAIL PREVIEW</div>
+            <img id="thumbImg" style="width:200px;border-radius:6px;border:1px solid var(--border)" src="" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANALYTICS PAGE -->
+    <div class="page" id="section-analytics">
+      <div class="page-header">
+        <div>
+          <div class="show-color-bar" id="colorBarAnalytics"></div>
+          <div class="page-title" id="showNameAnalytics">Team NO Sleep — Analytics</div>
+          <div class="page-desc">Update your show stats from YouTube Studio. These numbers display on your show page.</div>
+        </div>
+        <a href="https://studio.youtube.com" target="_blank" class="btn btn-outline btn-sm">
+          <i class="fab fa-youtube"></i> Open YouTube Studio
+        </a>
+      </div>
+
+      <div class="help-tip">
+        <i class="fas fa-info-circle"></i>
+        <span>Go to <strong>YouTube Studio → Analytics</strong> to find these numbers, then paste them here. You can use formats like <strong>12.4K</strong>, <strong>1.2M</strong>, or exact numbers.</span>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><i class="fas fa-chart-line"></i> Channel Stats</div>
+        <div class="card-desc">Main metrics displayed in the hero and stats sections.</div>
+        <div class="stat-inputs" id="statInputs">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><i class="fas fa-users"></i> Audience Demographics</div>
+        <div class="card-desc">Percentage breakdown displayed as bar charts on the show page. Values should add up to ~100.</div>
+        <div class="demo-editor">
+          <div class="demo-group">
+            <div class="demo-group-title">Age Groups</div>
+            <div id="ageInputs">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+          <div class="demo-group">
+            <div class="demo-group-title">Top Locations</div>
+            <div id="locationInputs">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOSTS PAGE -->
+    <div class="page" id="section-hosts">
+      <div class="page-header">
+        <div>
+          <div class="show-color-bar" id="colorBarHosts"></div>
+          <div class="page-title" id="showNameHosts">Team NO Sleep — Co-Hosts</div>
+          <div class="page-desc">Update host bios and social media links. These appear in the Co-Hosts spotlight section.</div>
+        </div>
+      </div>
+
+      <div class="help-tip">
+        <i class="fas fa-info-circle"></i>
+        <span>Add social media profile URLs (full links like <strong>https://instagram.com/yourhandle</strong>). Leave blank to hide the link.</span>
+      </div>
+
+      <div id="hostCards">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- EXPORT PAGE -->
+    <div class="page" id="section-export">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Export Updated Page</div>
+          <div class="page-desc">Download your updated show page with all the changes you've made.</div>
+        </div>
+      </div>
+
+      <div class="download-section">
+        <h3><i class="fas fa-download"></i> How to Update Your Show Page</h3>
+        <p>The Show Manager saves your changes in this browser. When you're ready, download the updated file, rename it to <strong>index.html</strong>, and drop it into the correct show folder in your repo — then push to deploy live in ~30 seconds.</p>
+
+        <div class="download-steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <span>Make all your changes in the Videos, Analytics, and Hosts sections</span>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <span>Click the <strong>Download</strong> button below for the show you want to update</span>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <span>Rename the downloaded file to <strong>index.html</strong>, then replace the file in the matching show folder (e.g., team-no-sleep/index.html)</span>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <span>Run <strong>git add . &amp;&amp; git commit -m "update" &amp;&amp; git push</strong> — live in ~30 seconds via GitHub Actions</span>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+          <button class="btn btn-accent" onclick="downloadPage('tns')" style="justify-content:center;flex-direction:column;align-items:center;padding:20px;gap:8px;border-radius:10px">
+            <i class="fas fa-download" style="font-size:1.2rem"></i>
+            <span>Team NO Sleep</span>
+            <span style="font-size:0.72rem;opacity:0.7">→ team-no-sleep/index.html</span>
+          </button>
+          <button class="btn btn-accent" onclick="downloadPage('tf')" style="justify-content:center;flex-direction:column;align-items:center;padding:20px;gap:8px;border-radius:10px;background:var(--orange)">
+            <i class="fas fa-download" style="font-size:1.2rem"></i>
+            <span>tek FORUM</span>
+            <span style="font-size:0.72rem;opacity:0.7">→ tek-forum/index.html</span>
+          </button>
+          <button class="btn btn-accent" onclick="downloadPage('dc')" style="justify-content:center;flex-direction:column;align-items:center;padding:20px;gap:8px;border-radius:10px;background:var(--blue)">
+            <i class="fas fa-download" style="font-size:1.2rem"></i>
+            <span>Digital Collective</span>
+            <span style="font-size:0.72rem;opacity:0.7">→ digital-collective/index.html</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px">
+        <div class="card-title"><i class="fas fa-save"></i> Auto-Save</div>
+        <div class="card-desc">Your changes are automatically saved to this browser as you work. They'll be here next time you open the Show Manager — no login needed.</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-success btn-sm" onclick="exportAllData()">
+            <i class="fas fa-file-export"></i> Backup All Data (JSON)
+          </button>
+          <button class="btn btn-outline btn-sm" onclick="document.getElementById('importFile').click()">
+            <i class="fas fa-file-import"></i> Restore from Backup
+          </button>
+          <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(this)">
+        </div>
+      </div>
+    </div>
+
+    <!-- HELP PAGE -->
+    <div class="page" id="section-help">
+      <div class="page-header">
+        <div>
+          <div class="page-title">How To Use This Manager</div>
+          <div class="page-desc">A quick guide to managing your three show pages.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><i class="fas fa-play-circle"></i> Adding Videos</div>
+        <div class="card-desc"></div>
+        <ol style="padding-left:20px;display:flex;flex-direction:column;gap:10px;font-size:0.88rem;color:var(--muted)">
+          <li>Go to <strong style="color:var(--text)">youtube.com/@jameshicks</strong> and open the episode you want to add</li>
+          <li>Copy the video ID from the URL bar — it's the text after <strong style="color:var(--text)">?v=</strong><br>
+            <span style="font-family:monospace;background:var(--surface2);padding:4px 10px;border-radius:4px;display:inline-block;margin-top:4px;color:var(--accent)">youtube.com/watch?v=<strong>THIS_PART</strong></span>
+          </li>
+          <li>Paste the ID into the <strong style="color:var(--text)">YouTube Video ID</strong> box</li>
+          <li>Add a title and date, then click <strong style="color:var(--text)">Add Episode</strong></li>
+          <li>Check <strong style="color:var(--text)">Mark as Featured</strong> for up to 2 episodes you want highlighted</li>
+          <li>Go to <strong style="color:var(--text)">Export → Download</strong> to save the updated page</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><i class="fas fa-chart-bar"></i> Updating Analytics</div>
+        <div class="card-desc"></div>
+        <ol style="padding-left:20px;display:flex;flex-direction:column;gap:10px;font-size:0.88rem;color:var(--muted)">
+          <li>Open <a href="https://studio.youtube.com" target="_blank" style="color:var(--accent)">studio.youtube.com</a> and go to the <strong style="color:var(--text)">Analytics</strong> section</li>
+          <li>Copy your <strong style="color:var(--text)">Subscribers</strong>, <strong style="color:var(--text)">Views</strong>, and <strong style="color:var(--text)">Watch time</strong> totals</li>
+          <li>Paste them into the Analytics section here — you can use formats like <strong style="color:var(--text)">14.2K</strong> or <strong style="color:var(--text)">1.8M</strong></li>
+          <li>Update the age and location percentages from your <strong style="color:var(--text)">Audience tab</strong> in YouTube Studio</li>
+          <li>Export the updated page when done</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><i class="fas fa-users"></i> Updating Host Bios & Social Links</div>
+        <div class="card-desc"></div>
+        <ol style="padding-left:20px;display:flex;flex-direction:column;gap:10px;font-size:0.88rem;color:var(--muted)">
+          <li>Click <strong style="color:var(--text)">Co-Host Bios</strong> in the left sidebar</li>
+          <li>Update each host's bio and paste in their social media profile URLs</li>
+          <li>Leave a social link field empty to hide that icon</li>
+          <li>Export when done</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><i class="fas fa-cloud-upload-alt"></i> Publishing Your Pages</div>
+        <div class="card-desc"></div>
+        <p style="font-size:0.88rem;color:var(--muted);line-height:1.7">After downloading an updated HTML file, you can host it anywhere — <strong style="color:var(--text)">Netlify Drop</strong> (free, drag-and-drop), <strong style="color:var(--text)">GitHub Pages</strong>, or your existing web host. Each file is fully self-contained with no dependencies — just upload the single HTML file and it works.</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toastMsg">Saved!</span></div>
+
+<script>
+/* ================================================================
+   SHOW MANAGER — State & Data
+   ================================================================ */
+
+const SHOW_DEFS = {
+  tns: {
+    key: 'tns',
+    name: 'Team NO Sleep',
+    file: 'team-no-sleep/index.html', downloadName: 'team-no-sleep-index.html',
+    color: '#a97f34',
+    accentVar: '#a97f34',
+    statLabels: ['Subscribers', 'Total Views', 'Watch Hours', 'Avg View Duration'],
+    ageGroups: ['18–24', '25–34', '35–44', '45–54', '55+'],
+    locations: ['United States', 'United Kingdom', 'Canada', 'Other'],
+    defaultAges: [22, 38, 24, 11, 5],
+    defaultLocs: [71, 10, 8, 11],
+    defaultHosts: [
+      { name: 'James Hicks', role: 'Host & Creator', bio: 'Founder of Hicks New Media. Content creator, digital strategist, and advocate for using technology and media to amplify underrepresented voices.', initials: 'JH', youtube: 'https://www.youtube.com/@jameshicks', instagram: '', twitter: '' },
+      { name: 'Montell', role: 'Co-Host', bio: 'Bringing sharp sports analysis and cultural context to every conversation. Passionate about the intersection of athletics and social justice.', initials: 'M', youtube: '', instagram: '', twitter: '' },
+      { name: 'Heather', role: 'Co-Host', bio: 'Sports journalist and commentator with a deep understanding of how sports narratives shape communities and drive social change.', initials: 'H', youtube: '', instagram: '', twitter: '' }
+    ]
+  },
+  tf: {
+    key: 'tf',
+    name: 'tek FORUM',
+    file: 'tek-forum/index.html', downloadName: 'tek-forum-index.html',
+    color: '#F48022',
+    statLabels: ['Subscribers', 'Total Views', 'Watch Hours', 'Avg View Duration'],
+    ageGroups: ['18–24', '25–34', '35–44', '45–54', '55+'],
+    locations: ['United States', 'United Kingdom', 'Canada', 'Other'],
+    defaultAges: [26, 40, 22, 8, 4],
+    defaultLocs: [68, 11, 9, 12],
+    defaultHosts: [
+      { name: 'James Hicks', role: 'Host & Creator', bio: 'Founder of Hicks New Media. Digital strategist, creator, and advocate for tech-empowered communities.', initials: 'JH', youtube: 'https://www.youtube.com/@jameshicks', instagram: '', twitter: '' },
+      { name: 'Jim',       role: 'Co-Host', bio: 'Veteran content creator sharing frameworks for sustainable growth in the evolving digital landscape.',          initials: 'J', youtube: '', instagram: '', twitter: '' },
+      { name: 'Tanya',     role: 'Co-Host', bio: 'Creator and strategist focused on audience development and community building for independent creators.',       initials: 'T', youtube: '', instagram: '', twitter: '' },
+      { name: 'Matt',      role: 'Co-Host', bio: 'Tech and productivity expert helping creators build efficient workflows and leverage emerging tools.',             initials: 'M', youtube: '', instagram: '', twitter: '' },
+      { name: 'Greg',      role: 'Co-Host', bio: 'Digital media professional with deep experience in content distribution and platform strategy.',                initials: 'G', youtube: '', instagram: '', twitter: '' },
+      { name: 'Stephanie', role: 'Co-Host', bio: 'Brand strategist and creator coach helping founders build authentic personal brands that convert.',              initials: 'S', youtube: '', instagram: '', twitter: '' },
+      { name: 'Florence',  role: 'Co-Host', bio: 'Creative director and content creator bringing a visual storytelling perspective to every conversation.',       initials: 'F', youtube: '', instagram: '', twitter: '' },
+      { name: 'Ericka',    role: 'Co-Host', bio: 'Marketing and monetization expert with a track record of helping creators turn their passion into profit.',     initials: 'E', youtube: '', instagram: '', twitter: '' },
+      { name: 'Chris',     role: 'Co-Host', bio: 'Video production specialist helping creators level up their technical craft and production value.',              initials: 'C', youtube: '', instagram: '', twitter: '' },
+      { name: 'Junaid',    role: 'Co-Host', bio: 'Tech entrepreneur with expertise in AI tools, automation, and the future of content creation.',                 initials: 'J', youtube: '', instagram: '', twitter: '' },
+      { name: 'Gabe',      role: 'Co-Host', bio: 'Social media strategist and growth hacker specializing in helping creators crack platform algorithms.',         initials: 'G', youtube: '', instagram: '', twitter: '' }
+    ]
+  },
+  dc: {
+    key: 'dc',
+    name: 'Digital Collective',
+    file: 'digital-collective/index.html', downloadName: 'digital-collective-index.html',
+    color: '#20557b',
+    statLabels: ['Subscribers', 'Total Views', 'Watch Hours', 'Avg View Duration'],
+    ageGroups: ['18–24', '25–34', '35–44', '45–54', '55+'],
+    locations: ['United States', 'United Kingdom', 'Canada', 'Other'],
+    defaultAges: [18, 35, 30, 13, 4],
+    defaultLocs: [72, 10, 9, 9],
+    defaultHosts: [
+      { name: 'James Hicks', role: 'Host & Creator', bio: 'Founder of Hicks New Media. Technologist, digital strategist, and creator dedicated to making technology accessible and empowering to all communities.', initials: 'JH', youtube: 'https://www.youtube.com/@jameshicks', instagram: '', twitter: '', linkedin: '' },
+      { name: 'Caren', role: 'Co-Host', bio: 'Technology professional and business strategist bringing deep expertise in digital transformation and the strategic decisions that define how organizations thrive in the digital era.', initials: 'C', youtube: '', instagram: '', twitter: '', linkedin: '' }
+    ]
+  }
+};
+
+// App state
+let currentShow = 'tns';
+let currentSection = 'videos';
+
+// Data store — load from localStorage or use defaults
+function getState(showKey) {
+  const stored = localStorage.getItem(`hnm_show_${showKey}`);
+  if (stored) return JSON.parse(stored);
+  const def = SHOW_DEFS[showKey];
+  return {
+    videos: [],
+    stats: { subscribers: '', totalViews: '', watchHours: '', avgViewDur: '' },
+    ageGroups: def.ageGroups.map((label, i) => ({ label, pct: def.defaultAges[i] })),
+    locations: def.locations.map((label, i) => ({ label, pct: def.defaultLocs[i] })),
+    hosts: JSON.parse(JSON.stringify(def.defaultHosts))
+  };
+}
+
+function saveState(showKey, data) {
+  localStorage.setItem(`hnm_show_${showKey}`, JSON.stringify(data));
+}
+
+function getShowState() { return getState(currentShow); }
+function setShowState(data) { saveState(currentShow, data); }
+
+/* ================================================================
+   SHOW / SECTION SWITCHING
+   ================================================================ */
+
+function switchShow(key, btn) {
+  currentShow = key;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCurrentSection();
+  const def = SHOW_DEFS[key];
+  // Update preview link
+  document.getElementById('previewShowBtn').href = def.file;
+}
+
+function switchSection(key, btn) {
+  currentSection = key;
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(`section-${key}`).classList.add('active');
+  renderCurrentSection();
+}
+
+function renderCurrentSection() {
+  if (currentSection === 'videos')    renderVideos();
+  if (currentSection === 'analytics') renderAnalytics();
+  if (currentSection === 'hosts')     renderHosts();
+  updateColorBars();
+}
+
+function updateColorBars() {
+  const color = SHOW_DEFS[currentShow].color;
+  const name  = SHOW_DEFS[currentShow].name;
+  ['Videos', 'Analytics', 'Hosts'].forEach(s => {
+    const bar = document.getElementById(`colorBar${s}`);
+    const lbl = document.getElementById(`showName${s}`);
+    if (bar) bar.style.background = color;
+    if (lbl) lbl.textContent = `${name} — ${s}`;
+  });
+}
+
+/* ================================================================
+   VIDEO MANAGEMENT
+   ================================================================ */
+
+function renderVideos() {
+  const state = getShowState();
+  const list  = document.getElementById('videoList');
+  const desc  = document.getElementById('videoCountDesc');
+  desc.textContent = `${state.videos.length} episode${state.videos.length !== 1 ? 's' : ''} added`;
+  list.innerHTML = '';
+
+  if (!state.videos.length) {
+    list.innerHTML = `<div style="text-align:center;padding:30px;color:var(--muted);font-size:0.85rem">
+      <i class="fas fa-film" style="font-size:1.8rem;display:block;margin-bottom:8px;color:#d1d5db"></i>
+      No episodes yet. Add one using the form below.
+    </div>`;
+    return;
+  }
+
+  state.videos.forEach((v, i) => {
+    const item = document.createElement('div');
+    item.className = `video-item${v.featured ? ' featured-item' : ''}`;
+    item.innerHTML = `
+      <div class="video-thumb-preview">
+        ${v.id
+          ? `<img src="https://img.youtube.com/vi/${v.id}/mqdefault.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=no-thumb><i class=fas fa-film></i></div>'">`
+          : `<div class="no-thumb"><i class="fas fa-film"></i></div>`}
+      </div>
+      <div class="video-details">
+        <div class="video-id-display">${v.id || '—'}</div>
+        <div class="video-title-display">${v.title || 'Untitled Episode'}</div>
+        <div class="video-date-display">${v.date || ''}</div>
+      </div>
+      <div class="video-actions">
+        <button class="feat-toggle ${v.featured ? 'featured' : ''}" onclick="toggleFeatured(${i})">
+          ${v.featured ? '★ Featured' : '☆ Feature'}
+        </button>
+        <button class="del-btn" onclick="deleteVideo(${i})" title="Remove episode">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>`;
+    list.appendChild(item);
+  });
+}
+
+function validateVideoId(input) {
+  const id = input.value.trim();
+  const badge = document.getElementById('idValidBadge');
+  if (!id) { badge.innerHTML = ''; document.getElementById('thumbPreview').style.display = 'none'; return; }
+  if (/^[a-zA-Z0-9_-]{11}$/.test(id)) {
+    badge.innerHTML = '<span class="valid-badge ok"><i class="fas fa-check"></i> valid</span>';
+    document.getElementById('thumbPreview').style.display = 'block';
+    document.getElementById('thumbImg').src = `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
+  } else {
+    badge.innerHTML = '<span class="valid-badge err"><i class="fas fa-times"></i> invalid</span>';
+    document.getElementById('thumbPreview').style.display = 'none';
+  }
+}
+
+function addVideo() {
+  const id    = document.getElementById('newVideoId').value.trim();
+  const title = document.getElementById('newVideoTitle').value.trim();
+  const date  = document.getElementById('newVideoDate').value.trim();
+  const feat  = document.getElementById('newVideoFeatured').checked;
+
+  if (!id) { showToast('Please enter a YouTube video ID', false); return; }
+  if (!title) { showToast('Please enter an episode title', false); return; }
+
+  const state = getShowState();
+  state.videos.unshift({ id, title, date, featured: feat });
+  setShowState(state);
+  document.getElementById('newVideoId').value = '';
+  document.getElementById('newVideoTitle').value = '';
+  document.getElementById('newVideoDate').value = '';
+  document.getElementById('newVideoFeatured').checked = false;
+  document.getElementById('thumbPreview').style.display = 'none';
+  document.getElementById('idValidBadge').innerHTML = '';
+  renderVideos();
+  showToast(`Added: ${title}`);
+}
+
+function deleteVideo(i) {
+  if (!confirm('Remove this episode?')) return;
+  const state = getShowState();
+  state.videos.splice(i, 1);
+  setShowState(state);
+  renderVideos();
+  showToast('Episode removed');
+}
+
+function toggleFeatured(i) {
+  const state = getShowState();
+  state.videos[i].featured = !state.videos[i].featured;
+  setShowState(state);
+  renderVideos();
+  showToast(state.videos[i].featured ? 'Marked as featured' : 'Removed featured status');
+}
+
+/* ================================================================
+   ANALYTICS
+   ================================================================ */
+
+const STAT_KEYS = ['subscribers', 'totalViews', 'watchHours', 'avgViewDur'];
+
+function renderAnalytics() {
+  const state = getShowState();
+
+  // Stats
+  const statInputs = document.getElementById('statInputs');
+  statInputs.innerHTML = '';
+  const icons = ['fa-users', 'fa-eye', 'fa-clock', 'fa-chart-line'];
+  STAT_KEYS.forEach((k, idx) => {
+    const label = SHOW_DEFS[currentShow].statLabels[idx];
+    const card = document.createElement('div');
+    card.className = 'stat-input-card';
+    card.innerHTML = `
+      <label><i class="fas ${icons[idx]}"></i> ${label}</label>
+      <input type="text" placeholder="e.g. 14.2K" value="${state.stats[k] || ''}"
+             oninput="updateStat('${k}', this.value)">`;
+    statInputs.appendChild(card);
+  });
+
+  // Age groups
+  const ageInputs = document.getElementById('ageInputs');
+  ageInputs.innerHTML = '';
+  state.ageGroups.forEach((a, i) => {
+    ageInputs.innerHTML += `
+      <div class="demo-row">
+        <label>${a.label}</label>
+        <input type="number" min="0" max="100" value="${a.pct}" style="width:70px"
+               oninput="updateDemo('ageGroups', ${i}, this.value)">
+        <span class="pct-suffix">%</span>
+      </div>`;
+  });
+
+  // Locations
+  const locInputs = document.getElementById('locationInputs');
+  locInputs.innerHTML = '';
+  state.locations.forEach((l, i) => {
+    locInputs.innerHTML += `
+      <div class="demo-row">
+        <label>${l.label}</label>
+        <input type="number" min="0" max="100" value="${l.pct}" style="width:70px"
+               oninput="updateDemo('locations', ${i}, this.value)">
+        <span class="pct-suffix">%</span>
+      </div>`;
+  });
+}
+
+function updateStat(key, val) {
+  const state = getShowState();
+  state.stats[key] = val;
+  setShowState(state);
+}
+
+function updateDemo(group, idx, val) {
+  const state = getShowState();
+  state[group][idx].pct = parseInt(val) || 0;
+  setShowState(state);
+}
+
+/* ================================================================
+   HOSTS
+   ================================================================ */
+
+function renderHosts() {
+  const state = getShowState();
+  const container = document.getElementById('hostCards');
+  container.innerHTML = '';
+
+  state.hosts.forEach((h, i) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    const hasSocials = currentShow === 'dc';
+    card.innerHTML = `
+      <div class="card-title" style="margin-bottom:16px">
+        <div style="width:38px;height:38px;border-radius:50%;background:${SHOW_DEFS[currentShow].color};display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;color:#fff">${h.initials}</div>
+        ${h.name} <span style="font-size:0.78rem;font-weight:400;color:var(--muted)">${h.role}</span>
+      </div>
+      <div class="form-group">
+        <label>Bio</label>
+        <textarea rows="3" oninput="updateHost(${i}, 'bio', this.value)">${h.bio}</textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label><i class="fab fa-youtube" style="color:#ff0000"></i> YouTube URL</label>
+          <input type="text" placeholder="https://youtube.com/@handle" value="${h.youtube || ''}"
+                 oninput="updateHost(${i}, 'youtube', this.value)">
+        </div>
+        <div class="form-group">
+          <label><i class="fab fa-instagram" style="color:#e1306c"></i> Instagram URL</label>
+          <input type="text" placeholder="https://instagram.com/handle" value="${h.instagram || ''}"
+                 oninput="updateHost(${i}, 'instagram', this.value)">
+        </div>
+        <div class="form-group">
+          <label><i class="fab fa-twitter" style="color:#1da1f2"></i> Twitter/X URL</label>
+          <input type="text" placeholder="https://twitter.com/handle" value="${h.twitter || ''}"
+                 oninput="updateHost(${i}, 'twitter', this.value)">
+        </div>
+        ${hasSocials ? `
+        <div class="form-group">
+          <label><i class="fab fa-linkedin" style="color:#0077b5"></i> LinkedIn URL</label>
+          <input type="text" placeholder="https://linkedin.com/in/handle" value="${h.linkedin || ''}"
+                 oninput="updateHost(${i}, 'linkedin', this.value)">
+        </div>` : ''}
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+function updateHost(i, field, val) {
+  const state = getShowState();
+  state.hosts[i][field] = val;
+  setShowState(state);
+}
+
+/* ================================================================
+   EXPORT / DOWNLOAD
+   ================================================================ */
+
+async function downloadPage(showKey) {
+  const state = getState(showKey);
+  const def   = SHOW_DEFS[showKey];
+
+  // Read the original HTML file
+  try {
+    const resp = await fetch(def.file);
+    if (!resp.ok) throw new Error('Could not read ' + def.file);
+    let html = await resp.text();
+
+    // Build the SHOW_CONFIG.videos array string
+    const videosStr = JSON.stringify(state.videos, null, 4)
+      .replace(/^\[/, '')
+      .replace(/\]$/, '')
+      .trim();
+
+    // Build the hosts array string
+    const hostsStr = JSON.stringify(state.hosts, null, 4)
+      .replace(/^\[/, '')
+      .replace(/\]$/, '')
+      .trim();
+
+    // Build analytics data
+    const s = state.stats;
+    const ageStr = JSON.stringify(state.ageGroups, null, 4);
+    const locStr = JSON.stringify(state.locations, null, 4);
+
+    // Replace SHOW_CONFIG videos
+    html = html.replace(
+      /videos:\s*\[[\s\S]*?\n\s*\]/,
+      `videos: [\n${videosStr}\n  ]`
+    );
+
+    // Replace SHOW_CONFIG hosts
+    html = html.replace(
+      /hosts:\s*\[[\s\S]*?\n\s*\],\n\n\s*merch:/,
+      `hosts: [\n${hostsStr}\n  ],\n\n  merch:`
+    );
+
+    // Replace ANALYTICS_DATA stats
+    const subVal  = s.subscribers || 'Update in Studio';
+    const viewVal = s.totalViews  || 'Update in Studio';
+    const wHrVal  = s.watchHours  || 'Update in Studio';
+    const avgVal  = s.avgViewDur  || 'Update in Studio';
+
+    html = html.replace(/subscribers:\s*["'][^"']*["']/,  `subscribers: "${subVal}"`);
+    html = html.replace(/totalViews:\s*["'][^"']*["']/,   `totalViews: "${viewVal}"`);
+    html = html.replace(/watchHours:\s*["'][^"']*["']/,   `watchHours: "${wHrVal}"`);
+    html = html.replace(/avgViewDur:\s*["'][^"']*["']/,   `avgViewDur: "${avgVal}"`);
+
+    // Replace ageGroups and locations
+    html = html.replace(
+      /ageGroups:\s*\[[\s\S]*?\n\s*\]/,
+      `ageGroups: ${ageStr}`
+    );
+    html = html.replace(
+      /locations:\s*\[[\s\S]*?\n\s*\]/,
+      `locations: ${locStr}`
+    );
+
+    // Trigger download
+    const blob = new Blob([html], { type: 'text/html' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    a.download = def.downloadName;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast(`Downloaded ${def.file}!`);
+  } catch (err) {
+    alert(`Could not generate download: ${err.message}\n\nMake sure the show HTML files are in the same folder as this manager.`);
+  }
+}
+
+/* ================================================================
+   BACKUP & RESTORE
+   ================================================================ */
+
+function exportAllData() {
+  const backup = {};
+  ['tns', 'tf', 'dc'].forEach(k => { backup[k] = getState(k); });
+  const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = `hnm-show-manager-backup-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Backup downloaded!');
+}
+
+function importData(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      ['tns', 'tf', 'dc'].forEach(k => {
+        if (data[k]) saveState(k, data[k]);
+      });
+      renderCurrentSection();
+      showToast('Backup restored!');
+    } catch { alert('Invalid backup file.'); }
+  };
+  reader.readAsText(file);
+}
+
+/* ================================================================
+   TOAST
+   ================================================================ */
+
+function showToast(msg, success = true) {
+  const toast = document.getElementById('toast');
+  const icon  = toast.querySelector('i');
+  document.getElementById('toastMsg').textContent = msg;
+  icon.className = `fas ${success ? 'fa-check-circle' : 'fa-exclamation-circle'}`;
+  icon.style.color = success ? 'var(--green)' : 'var(--orange)';
+  toast.style.borderLeftColor = success ? 'var(--green)' : 'var(--orange)';
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+/* ================================================================
+   INIT
+   ================================================================ */
+
+updateColorBars();
+renderVideos();
+</script>
+</body>
+</html>

@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shows — HicksNewMedia</title>
+  <meta name="description" content="Watch and listen to all HicksNewMedia shows — Team NO Sleep, tek FORUM, and Digital Collective." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #141414;
+      --surface2: #1e1e1e;
+      --border: rgba(255,255,255,0.08);
+      --text: #f0f0f0;
+      --muted: #888;
+      --hnm-gold: #c89b3c;
+
+      --tns-gold: #a97f34;
+      --tns-dark: #221d16;
+      --tf-orange: #F48022;
+      --tf-gray: #848485;
+      --dc-navy: #20557b;
+      --dc-orange: #F48022;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+    .nav-logo {
+      width: 36px;
+      height: 36px;
+      background: var(--hnm-gold);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      color: #000;
+      letter-spacing: 0.05em;
+    }
+    .nav-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.25rem;
+      letter-spacing: 0.1em;
+      color: var(--text);
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--hnm-gold); }
+
+    /* ─── HERO ─── */
+    .hero {
+      padding: 140px 2rem 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,155,60,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--hnm-gold);
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      letter-spacing: 0.08em;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 span {
+      color: var(--hnm-gold);
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--hnm-gold);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.85rem 2rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .hero-cta:hover { opacity: 0.88; transform: translateY(-2px); }
+
+    /* ─── SECTION ─── */
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ─── SHOW CARDS ─── */
+    .shows-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .show-card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+      group: true;
+    }
+    .show-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    }
+
+    .show-card-banner {
+      height: 8px;
+      width: 100%;
+    }
+    .show-card-body {
+      padding: 2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .show-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      margin-bottom: 1.25rem;
+      width: fit-content;
+    }
+    .show-card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      letter-spacing: 0.06em;
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+    }
+    .show-card-tagline {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: 1.75rem;
+    }
+    .show-card-hosts {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.75rem;
+    }
+    .host-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      border: 2px solid var(--bg);
+      margin-left: -8px;
+      color: #000;
+      flex-shrink: 0;
+    }
+    .host-avatar:first-child { margin-left: 0; }
+    .host-count {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-left: 0.5rem;
+    }
+    .show-card-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: opacity 0.2s;
+    }
+    .show-card:hover .show-card-cta { opacity: 0.85; }
+    .show-card-cta i { font-size: 0.75rem; transition: transform 0.2s; }
+    .show-card:hover .show-card-cta i { transform: translateX(4px); }
+
+    /* Team NO Sleep */
+    .card-tns .show-card-banner { background: linear-gradient(90deg, var(--tns-gold), #c9a755); }
+    .card-tns .show-badge { background: rgba(169,127,52,0.15); color: var(--tns-gold); }
+    .card-tns .show-card-title { color: var(--tns-gold); }
+    .card-tns .host-avatar { background: var(--tns-gold); }
+    .card-tns .show-card-cta { background: var(--tns-gold); color: #000; }
+
+    /* tek FORUM */
+    .card-tf .show-card-banner { background: linear-gradient(90deg, var(--tf-orange), #ffaa55); }
+    .card-tf .show-badge { background: rgba(244,128,34,0.15); color: var(--tf-orange); }
+    .card-tf .show-card-title { color: var(--tf-orange); }
+    .card-tf .host-avatar { background: var(--tf-orange); }
+    .card-tf .show-card-cta { background: var(--tf-orange); color: #000; }
+
+    /* Digital Collective */
+    .card-dc .show-card-banner { background: linear-gradient(90deg, var(--dc-navy), var(--dc-orange)); }
+    .card-dc .show-badge { background: rgba(32,85,123,0.2); color: #5fa8d3; }
+    .card-dc .show-card-title { color: #5fa8d3; }
+    .card-dc .host-avatar:nth-child(odd) { background: var(--dc-navy); color: #fff; }
+    .card-dc .host-avatar:nth-child(even) { background: var(--dc-orange); }
+    .card-dc .show-card-cta { background: var(--dc-navy); color: #fff; }
+
+    /* ─── ABOUT STRIP ─── */
+    .about-strip {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 4rem 2rem;
+      text-align: center;
+      margin-bottom: 6rem;
+    }
+    .about-strip h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      letter-spacing: 0.08em;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+    .about-strip h2 span { color: var(--hnm-gold); }
+    .about-strip p {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 580px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+    .about-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .about-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      padding: 0.6rem 1.25rem;
+      border-radius: 4px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .about-link:hover { color: var(--hnm-gold); border-color: var(--hnm-gold); }
+
+    /* ─── NEWSLETTER ─── */
+    .newsletter {
+      max-width: 600px;
+      margin: 0 auto 6rem;
+      padding: 0 2rem;
+      text-align: center;
+    }
+    .newsletter h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .newsletter p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .newsletter-form {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .newsletter-form input {
+      flex: 1;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.85rem 1.25rem;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .newsletter-form input:focus { border-color: var(--hnm-gold); }
+    .newsletter-form input::placeholder { color: var(--muted); }
+    .newsletter-form button {
+      background: var(--hnm-gold);
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      padding: 0.85rem 1.5rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    .newsletter-form button:hover { opacity: 0.85; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+    .footer-brand span { color: var(--hnm-gold); }
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+    }
+    .footer-social a {
+      color: var(--muted);
+      font-size: 1rem;
+      transition: color 0.2s;
+    }
+    .footer-social a:hover { color: var(--hnm-gold); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      nav { padding: 0 1.25rem; }
+      .nav-links { display: none; }
+      .hero { padding: 120px 1.25rem 60px; }
+      .section { padding: 0 1.25rem 4rem; }
+      .shows-grid { grid-template-columns: 1fr; }
+      .newsletter-form { flex-direction: column; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="https://hicksnewmedia.com" class="nav-brand">
+      <div class="nav-logo">HNM</div>
+      <span class="nav-name">HicksNewMedia</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="https://hicksnewmedia.com">Home</a></li>
+      <li><a href="/shows" class="active">Shows</a></li>
+      <li><a href="https://www.youtube.com/@jameshicks" target="_blank">YouTube</a></li>
+      <li><a href="mailto:james@hicksnewmedia.com">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow">HicksNewMedia</p>
+    <h1>Our <span>Shows</span></h1>
+    <p class="hero-sub">Three shows. Real talk on tech, culture, and everything in between. Hosted by James Hicks and a crew that doesn't sleep on the conversation.</p>
+    <a href="#shows" class="hero-cta">
+      <i class="fa-solid fa-play"></i> Browse All Shows
+    </a>
+  </section>
+
+  <!-- SHOWS GRID -->
+  <div class="section" id="shows">
+    <p class="section-label">All Shows</p>
+    <div class="shows-grid">
+
+      <!-- Team NO Sleep -->
+      <a href="/shows/team-no-sleep" class="show-card card-tns">
+        <div class="show-card-banner"></div>
+        <div class="show-card-body">
+          <span class="show-badge"><i class="fa-solid fa-moon"></i> Culture & Sports</span>
+          <h2 class="show-card-title">Team NO Sleep</h2>
+          <p class="show-card-tagline">Late-night energy, no-filter conversations on tech, culture, and what keeps us up. James, Montell, and Heather bring the heat every episode.</p>
+          <div class="show-card-hosts">
+            <div class="host-avatar" title="James Hicks">JH</div>
+            <div class="host-avatar" title="Montell">M</div>
+            <div class="host-avatar" title="Heather">H</div>
+            <span class="host-count">3 Hosts</span>
+          </div>
+          <div class="show-card-cta">
+            Watch Episodes <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+      </a>
+
+      <!-- tek FORUM -->
+      <a href="/shows/tek-forum" class="show-card card-tf">
+        <div class="show-card-banner"></div>
+        <div class="show-card-body">
+          <span class="show-badge"><i class="fa-solid fa-microchip"></i> Technology</span>
+          <h2 class="show-card-title">tek FORUM</h2>
+          <p class="show-card-tagline">The most diverse tech panel on the internet. 11 voices breaking down the gadgets, platforms, and ideas shaping our digital world.</p>
+          <div class="show-card-hosts">
+            <div class="host-avatar" title="James Hicks">JH</div>
+            <div class="host-avatar" style="background:#e07010;">+</div>
+            <div class="host-avatar" style="background:#cc6600;">+</div>
+            <div class="host-avatar" style="background:#b85a00;">+</div>
+            <span class="host-count">11 Hosts</span>
+          </div>
+          <div class="show-card-cta">
+            Watch Episodes <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+      </a>
+
+      <!-- Digital Collective -->
+      <a href="/shows/digital-collective" class="show-card card-dc">
+        <div class="show-card-banner"></div>
+        <div class="show-card-body">
+          <span class="show-badge"><i class="fa-solid fa-network-wired"></i> Digital Culture</span>
+          <h2 class="show-card-title">Digital Collective</h2>
+          <p class="show-card-tagline">James and Caren unpack the intersection of technology, community, and creative culture — with depth, honesty, and a whole lot of range.</p>
+          <div class="show-card-hosts">
+            <div class="host-avatar" title="James Hicks" style="background: var(--dc-navy); color:#fff;">JH</div>
+            <div class="host-avatar" title="Caren" style="background: var(--dc-orange);">C</div>
+            <span class="host-count">2 Hosts</span>
+          </div>
+          <div class="show-card-cta">
+            Watch Episodes <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ABOUT STRIP -->
+  <div class="about-strip">
+    <h2>Built for the <span>Culture</span></h2>
+    <p>HicksNewMedia is dedicated to making technology accessible and exciting for everyone — especially communities that have been left out of the conversation.</p>
+    <div class="about-links">
+      <a href="https://www.youtube.com/@jameshicks" target="_blank" class="about-link">
+        <i class="fa-brands fa-youtube"></i> YouTube Channel
+      </a>
+      <a href="https://hnmmerch.store" target="_blank" class="about-link">
+        <i class="fa-solid fa-shirt"></i> Merch Store
+      </a>
+      <a href="mailto:james@hicksnewmedia.com" class="about-link">
+        <i class="fa-solid fa-envelope"></i> Work With Us
+      </a>
+    </div>
+  </div>
+
+  <!-- NEWSLETTER -->
+  <div class="newsletter">
+    <h3>Stay in the Loop</h3>
+    <p>New episodes, behind-the-scenes drops, and exclusive content — straight to your inbox.</p>
+    <form class="newsletter-form" onsubmit="handleSubscribe(event)">
+      <input type="email" id="nlEmail" placeholder="your@email.com" required />
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">Hicks<span>NewMedia</span></div>
+    <ul class="footer-links">
+      <li><a href="https://hicksnewmedia.com">Home</a></li>
+      <li><a href="/shows">Shows</a></li>
+      <li><a href="https://hnmmerch.store" target="_blank">Merch</a></li>
+      <li><a href="mailto:james@hicksnewmedia.com">Contact</a></li>
+    </ul>
+    <div class="footer-social">
+      <a href="https://www.youtube.com/@jameshicks" target="_blank" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      <a href="https://twitter.com/jameshicks" target="_blank" title="Twitter / X"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="https://instagram.com/hicksnewmedia" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    function handleSubscribe(e) {
+      e.preventDefault();
+      const email = document.getElementById('nlEmail').value;
+      const btn = e.target.querySelector('button');
+      btn.textContent = 'Subscribed!';
+      btn.style.background = '#22c55e';
+      btn.style.color = '#fff';
+      setTimeout(() => {
+        btn.textContent = 'Subscribe';
+        btn.style.background = '';
+        btn.style.color = '';
+        document.getElementById('nlEmail').value = '';
+      }, 3000);
+      // Wire up to your email service here (Mailchimp, ConvertKit, etc.)
+      // fetch('/api/subscribe', { method: 'POST', body: JSON.stringify({ email }) })
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+  </script>
+
+</body>
+</html>

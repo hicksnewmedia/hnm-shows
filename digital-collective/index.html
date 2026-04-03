@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Digital Collective - Podcast Show</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #20557b;
+            --secondary: #848485;
+            --white: #ffffff;
+            --accent: #F48022;
+            --dark: #0a1628;
+            --light-gray: #f5f5f5;
+            --border-color: #e0e0e0;
+            --text-dark: #1a1a1a;
+            --text-light: #666666;
+            --font-heading: 'DM Serif Display', serif;
+            --font-body: 'DM Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--white);
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--white);
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background-color: var(--primary);
+                padding: 1rem;
+                gap: 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 0.5rem 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #2d6fa8 100%);
+            color: var(--white);
+            padding: 4rem 2rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: #d97314;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--white);
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Media Player */
+        .media-player {
+            background-color: var(--light-gray);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .media-player h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .play-btn {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .play-btn:hover {
+            background-color: var(--accent);
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background-color: #ddd;
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--primary);
+            border-radius: 3px;
+            width: 0%;
+        }
+
+        .time-display {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            min-width: 80px;
+        }
+
+        .speed-controls {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .speed-btn {
+            padding: 0.5rem 1rem;
+            background-color: var(--white);
+            border: 1px solid var(--secondary);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .speed-btn.active {
+            background-color: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        /* Subscribe Platforms */
+        .platforms {
+            background-color: var(--light-gray);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .platforms h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .platform-card {
+            padding: 1.5rem;
+            background-color: var(--white);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            border: 2px solid transparent;
+        }
+
+        .platform-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .platform-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .platform-card p {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .platform-card span {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Hosts */
+        .hosts {
+            padding: 3rem 2rem;
+        }
+
+        .hosts h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .hosts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .host-card {
+            background-color: var(--light-gray);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .host-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .host-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--white);
+        }
+
+        .host-name {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .host-role {
+            color: var(--secondary);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .host-bio {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .social-links a {
+            color: var(--primary);
+            font-size: 1.3rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Community Hub */
+        .community {
+            background-color: var(--light-gray);
+            padding: 3rem 2rem;
+        }
+
+        .community h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--white);
+            border: 2px solid var(--secondary);
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .chat-container {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 5px;
+            background-color: #fafafa;
+        }
+
+        .chat-message {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: var(--white);
+            border-radius: 5px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .chat-author {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .chat-text {
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .chat-time {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(32, 85, 123, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-button {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-button:hover {
+            background-color: var(--accent);
+        }
+
+        .voice-recording {
+            border: 2px dashed var(--primary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+
+        .voice-recording h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .record-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .record-btn {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--accent);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .record-btn:hover:not(:disabled) {
+            background-color: #d97314;
+        }
+
+        .record-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .record-status {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin: 1rem 0;
+        }
+
+        .timer {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+
+        .audio-playback {
+            margin: 1rem 0;
+        }
+
+        .audio-playback audio {
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        /* Reviews */
+        .reviews {
+            padding: 3rem 2rem;
+        }
+
+        .reviews h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .review-card {
+            background-color: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .review-stars {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .review-author {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .review-text {
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-platform {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Merchandise */
+        .merchandise {
+            background-color: var(--light-gray);
+            padding: 3rem 2rem;
+        }
+
+        .merchandise h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .merch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .merch-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            border: 2px solid transparent;
+        }
+
+        .merch-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .merch-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--white);
+        }
+
+        .merch-info {
+            padding: 1.5rem;
+        }
+
+        .merch-name {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-family: var(--font-heading);
+        }
+
+        .merch-price {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .merch-btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--primary);
+            color: var(--white);
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .merch-btn:hover {
+            background-color: var(--accent);
+        }
+
+        /* Analytics */
+        .analytics {
+            padding: 3rem 2rem;
+            background-color: var(--light-gray);
+        }
+
+        .analytics h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto 3rem;
+        }
+
+        .metric-card {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            border-top: 4px solid var(--primary);
+        }
+
+        .metric-value {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .demographics {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .demographic-item {
+            margin-bottom: 2rem;
+        }
+
+        .demographic-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .demographic-bar {
+            height: 12px;
+            background-color: var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .demographic-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, var(--primary) 0%, #2d6fa8 100%);
+            color: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+            max-width: 500px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: var(--font-body);
+        }
+
+        .newsletter-btn {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--accent);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .newsletter-btn:hover {
+            background-color: #d97314;
+        }
+
+        /* Sponsors */
+        .sponsors {
+            padding: 3rem 2rem;
+        }
+
+        .sponsors h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .sponsor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .sponsor-card {
+            background-color: var(--light-gray);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .sponsor-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .sponsor-logo {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .sponsor-name {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .sponsor-desc {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .sponsor-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .sponsor-link:hover {
+            background-color: var(--accent);
+        }
+
+        /* Episodes */
+        .episodes {
+            padding: 3rem 2rem;
+            background-color: var(--light-gray);
+        }
+
+        .episodes h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .episode-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            padding: 0.75rem;
+            border: 1px solid var(--secondary);
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: var(--font-body);
+            min-width: 250px;
+        }
+
+        .filter-select {
+            padding: 0.75rem;
+            border: 1px solid var(--secondary);
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: var(--font-body);
+            background-color: var(--white);
+            cursor: pointer;
+        }
+
+        .episodes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .episode-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .episode-card:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .episode-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--white);
+        }
+
+        .episode-info {
+            padding: 1.5rem;
+        }
+
+        .episode-number {
+            color: var(--secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .episode-title {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .episode-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .episode-desc {
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-icons a {
+            color: var(--white);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        @media (max-width: 768px) {
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Utility */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 4px solid rgba(32, 85, 123, 0.2);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- BREADCRUMB BAR -->
+    <div style="background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.07);padding:0.55rem 1.5rem;display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;font-family:'Inter',sans-serif;">
+      <a href="/shows" style="color:#5fa8d3;text-decoration:none;display:flex;align-items:center;gap:0.4rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 1.5L3 6l4.5 4.5" stroke="#5fa8d3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        All Shows
+      </a>
+      <span style="color:rgba(255,255,255,0.2);">·</span>
+      <span style="color:rgba(255,255,255,0.4);">Digital Collective</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#home" class="logo">The Digital Collective</a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#episodes">Episodes</a></li>
+            <li><a href="#hosts">Hosts</a></li>
+            <li><a href="#community">Community</a></li>
+            <li><a href="#merch">Merchandise</a></li>
+            <li><a href="#newsletter">Newsletter</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>The Digital Collective</h1>
+        <p>Exploring the intersection of technology, culture, and innovation. Join us as we discuss the digital age.</p>
+        <div class="hero-buttons">
+            <button class="btn btn-primary" onclick="document.getElementById('player').scrollIntoView({behavior: 'smooth'})">Listen Now</button>
+            <button class="btn btn-secondary" onclick="document.getElementById('platforms').scrollIntoView({behavior: 'smooth'})">Subscribe</button>
+        </div>
+    </section>
+
+    <!-- Media Player -->
+    <section class="media-player" id="player">
+        <h3>Now Playing</h3>
+        <div class="player-controls">
+            <button class="play-btn" id="playBtn">
+                <i class="fas fa-play"></i>
+            </button>
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-bar-fill" id="progressFill"></div>
+            </div>
+            <div class="time-display">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </div>
+        </div>
+        <audio id="audioPlayer" style="display: none;"></audio>
+        <div class="speed-controls">
+            <button class="speed-btn active" data-speed="1">1x</button>
+            <button class="speed-btn" data-speed="0.75">0.75x</button>
+            <button class="speed-btn" data-speed="1.25">1.25x</button>
+            <button class="speed-btn" data-speed="1.5">1.5x</button>
+        </div>
+    </section>
+
+    <!-- Subscribe Platforms -->
+    <section class="platforms" id="platforms">
+        <h2>Subscribe to The Digital Collective</h2>
+        <div class="platform-grid">
+            <a href="https://podcasts.apple.com" class="platform-card">
+                <div class="platform-icon"><i class="fas fa-podcast"></i></div>
+                <p>Apple Podcasts</p>
+                <span>Coming Soon</span>
+            </a>
+            <a href="https://open.spotify.com" class="platform-card">
+                <div class="platform-icon"><i class="fab fa-spotify"></i></div>
+                <p>Spotify</p>
+                <span>Coming Soon</span>
+            </a>
+            <a href="https://www.youtube.com/@hicksnewmedia" class="platform-card">
+                <div class="platform-icon"><i class="fab fa-youtube"></i></div>
+                <p>YouTube</p>
+                <span>Available</span>
+            </a>
+            <a href="https://podcasts.google.com" class="platform-card">
+                <div class="platform-icon"><i class="fab fa-google"></i></div>
+                <p>Google Podcasts</p>
+                <span>Coming Soon</span>
+            </a>
+            <a href="https://www.stitcher.com" class="platform-card">
+                <div class="platform-icon"><i class="fas fa-music"></i></div>
+                <p>Stitcher</p>
+                <span>Coming Soon</span>
+            </a>
+            <a href="https://overcast.fm" class="platform-card">
+                <div class="platform-icon"><i class="fas fa-play-circle"></i></div>
+                <p>Overcast</p>
+                <span>Coming Soon</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Hosts -->
+    <section class="hosts" id="hosts">
+        <h2>Meet the Hosts</h2>
+        <div class="hosts-grid">
+            <div class="host-card">
+                <div class="host-avatar"><i class="fas fa-user"></i></div>
+                <h3 class="host-name">James Hicks</h3>
+                <p class="host-role">Host & Creator</p>
+                <p class="host-bio">James Hicks is the creator and host of hicksnewmedia. With years of experience in media and technology, he brings deep insights and engaging conversations to every episode.</p>
+                <div class="social-links">
+                    <a href="https://twitter.com" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://linkedin.com" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="host-card">
+                <div class="host-avatar"><i class="fas fa-user"></i></div>
+                <h3 class="host-name">Caren</h3>
+                <p class="host-role">Co-Host</p>
+                <p class="host-bio">Caren brings a fresh perspective and critical thinking to discussions about digital culture and innovation. Her expertise adds depth to every conversation on the show.</p>
+                <div class="social-links">
+                    <a href="https://twitter.com" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://linkedin.com" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Hub -->
+    <section class="community" id="community">
+        <h2>Community Hub</h2>
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="chat">Fan Chat</button>
+            <button class="tab-btn" data-tab="recording">Voice Recording</button>
+            <button class="tab-btn" data-tab="guest">Guest Pitch</button>
+        </div>
+
+        <!-- Fan Chat Tab -->
+        <div id="chat" class="tab-content active">
+            <div class="chat-container">
+                <div class="chat-message">
+                    <div class="chat-author">Alex_Tech</div>
+                    <div class="chat-text">Amazing insights on the digital landscape! Really enjoyed the latest episode.</div>
+                    <div class="chat-time">2 hours ago</div>
+                </div>
+                <div class="chat-message">
+                    <div class="chat-author">TechEnthusiast92</div>
+                    <div class="chat-text">The discussion about AI ethics was thought-provoking. Would love to hear more on this topic.</div>
+                    <div class="chat-time">4 hours ago</div>
+                </div>
+                <div class="chat-message">
+                    <div class="chat-author">DigitalNomad</div>
+                    <div class="chat-text">Thanks for keeping us informed about the latest tech trends!</div>
+                    <div class="chat-time">6 hours ago</div>
+                </div>
+            </div>
+            <form action="mailto:james@hicksnewmedia.com" method="POST" enctype="text/plain">
+                <div class="form-group">
+                    <label class="form-label">Your Name</label>
+                    <input type="text" class="form-input" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Your Message</label>
+                    <textarea class="form-textarea" name="message" required></textarea>
+                </div>
+                <button type="submit" class="form-button">Send Message</button>
+            </form>
+        </div>
+
+        <!-- Voice Recording Tab -->
+        <div id="recording" class="tab-content">
+            <div class="voice-recording">
+                <h4>Share Your Voice</h4>
+                <p>Record a message (max 90 seconds) to share with the community.</p>
+                <div class="record-buttons">
+                    <button class="record-btn" id="recordBtn">
+                        <i class="fas fa-microphone"></i> Start Recording
+                    </button>
+                    <button class="record-btn" id="stopBtn" disabled>
+                        <i class="fas fa-stop"></i> Stop Recording
+                    </button>
+                </div>
+                <div class="timer" id="timer" style="display: none;">00:00 / 01:30</div>
+                <div class="record-status" id="recordStatus"></div>
+                <div class="audio-playback" id="audioPlayback"></div>
+            </div>
+            <form action="mailto:james@hicksnewmedia.com" method="POST" enctype="text/plain" id="voiceForm">
+                <div class="form-group" style="margin-top: 1.5rem;">
+                    <label class="form-label">Your Name</label>
+                    <input type="text" class="form-input" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" name="email" required>
+                </div>
+                <button type="submit" class="form-button">Submit Voice Message</button>
+            </form>
+        </div>
+
+        <!-- Guest Pitch Tab -->
+        <div id="guest" class="tab-content">
+            <h3 style="color: var(--primary); margin-bottom: 1.5rem;">Submit Your Guest Pitch</h3>
+            <form action="mailto:james@hicksnewmedia.com" method="POST" enctype="text/plain">
+                <div class="form-group">
+                    <label class="form-label">Full Name *</label>
+                    <input type="text" class="form-input" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email Address *</label>
+                    <input type="email" class="form-input" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Social Media Handles</label>
+                    <input type="text" class="form-input" name="instagram" placeholder="Instagram">
+                    <input type="text" class="form-input" name="twitter" placeholder="Twitter" style="margin-top: 0.5rem;">
+                    <input type="text" class="form-input" name="linkedin" placeholder="LinkedIn" style="margin-top: 0.5rem;">
+                    <input type="url" class="form-input" name="website" placeholder="Website/Blog" style="margin-top: 0.5rem;">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Area of Expertise *</label>
+                    <input type="text" class="form-input" name="expertise" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Pitch Description *</label>
+                    <textarea class="form-textarea" name="pitch" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Previous Media Appearances</label>
+                    <textarea class="form-textarea" name="media_appearances"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Links to Your Work</label>
+                    <textarea class="form-textarea" name="links"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Availability Preference *</label>
+                    <select class="form-select" name="availability" required>
+                        <option value="">Select availability</option>
+                        <option value="Weekdays">Weekdays</option>
+                        <option value="Weekends">Weekends</option>
+                        <option value="Flexible">Flexible</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Which show would you like to appear on? *</label>
+                    <select class="form-select" name="show_selection" required>
+                        <option value="">Select show</option>
+                        <option value="Team No Sleep">Team No Sleep</option>
+                        <option value="tek FORUM">tek FORUM</option>
+                        <option value="The Digital Collective">The Digital Collective</option>
+                    </select>
+                </div>
+                <button type="submit" class="form-button">Submit Pitch</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Reviews -->
+    <section class="reviews">
+        <h2>What Listeners Say</h2>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <div class="review-author">Jordan T.</div>
+                <div class="review-text">"The Digital Collective offers truly unique perspectives on modern technology and culture. Highly recommended!"</div>
+                <div class="review-platform">Apple Podcasts</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <div class="review-author">Sam K.</div>
+                <div class="review-text">"James and Caren bring such depth and nuance to complex topics. I've learned so much from this show."</div>
+                <div class="review-platform">Spotify</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <div class="review-author">Riley M.</div>
+                <div class="review-text">"A must-listen for anyone interested in digital culture and innovation. Great discussions and excellent production quality."</div>
+                <div class="review-platform">YouTube</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">★★★★☆</div>
+                <div class="review-author">Casey L.</div>
+                <div class="review-text">"Really enjoying the episodes so far. Would love to see more guest appearances from industry experts."</div>
+                <div class="review-platform">Apple Podcasts</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <div class="review-author">Morgan S.</div>
+                <div class="review-text">"The Digital Collective is one of the best podcasts out there. Every episode is packed with valuable insights."</div>
+                <div class="review-platform">Spotify</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <div class="review-author">Blake P.</div>
+                <div class="review-text">"Excellent show! The chemistry between the hosts is fantastic and the topics are always relevant and interesting."</div>
+                <div class="review-platform">YouTube</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Merchandise -->
+    <section class="merchandise" id="merch">
+        <h2>Official Merchandise</h2>
+        <div class="merch-grid">
+            <a href="https://hicksnewmedia.com/merch" class="merch-card">
+                <div class="merch-image"><i class="fas fa-shirt"></i></div>
+                <div class="merch-info">
+                    <div class="merch-name">Classic T-Shirt</div>
+                    <div class="merch-price">$24.99</div>
+                    <a href="https://hicksnewmedia.com/merch" class="merch-btn">Shop Now</a>
+                </div>
+            </a>
+            <a href="https://hicksnewmedia.com/merch" class="merch-card">
+                <div class="merch-image"><i class="fas fa-hat-cowboy"></i></div>
+                <div class="merch-info">
+                    <div class="merch-name">Logo Cap</div>
+                    <div class="merch-price">$19.99</div>
+                    <a href="https://hicksnewmedia.com/merch" class="merch-btn">Shop Now</a>
+                </div>
+            </a>
+            <a href="https://hicksnewmedia.com/merch" class="merch-card">
+                <div class="merch-image"><i class="fas fa-mug-hot"></i></div>
+                <div class="merch-info">
+                    <div class="merch-name">Coffee Mug</div>
+                    <div class="merch-price">$14.99</div>
+                    <a href="https://hicksnewmedia.com/merch" class="merch-btn">Shop Now</a>
+                </div>
+            </a>
+            <a href="https://hicksnewmedia.com/merch" class="merch-card">
+                <div class="merch-image"><i class="fas fa-water"></i></div>
+                <div class="merch-info">
+                    <div class="merch-name">Water Bottle</div>
+                    <div class="merch-price">$22.99</div>
+                    <a href="https://hicksnewmedia.com/merch" class="merch-btn">Shop Now</a>
+                </div>
+            </a>
+            <a href="https://hicksnewmedia.com/merch" class="merch-card">
+                <div class="merch-image"><i class="fas fa-backpack"></i></div>
+                <div class="merch-info">
+                    <div class="merch-name">Branded Backpack</div>
+                    <div class="merch-price">$49.99</div>
+                    <a href="https://hicksnewmedia.com/merch" class="merch-btn">Shop Now</a>
+                </div>
+            </a>
+            <a href="https://hicksnewmedia.com/merch" class="merch-card">
+                <div class="merch-image"><i class="fas fa-hoodie"></i></div>
+                <div class="merch-info">
+                    <div class="merch-name">Hoodie</div>
+                    <div class="merch-price">$44.99</div>
+                    <a href="https://hicksnewmedia.com/merch" class="merch-btn">Shop Now</a>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Analytics -->
+    <section class="analytics">
+        <h2>Show Analytics</h2>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-value">48.2K</div>
+                <div class="metric-label">Total Downloads</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">12.4K</div>
+                <div class="metric-label">Active Listeners</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">47</div>
+                <div class="metric-label">Episodes</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">38 mins</div>
+                <div class="metric-label">Average Duration</div>
+            </div>
+        </div>
+        <div class="demographics">
+            <h3 style="color: var(--primary); margin-bottom: 2rem; text-align: center; font-family: var(--font-heading);">Listener Demographics</h3>
+            <div class="demographic-item">
+                <div class="demographic-label">
+                    <span>18-24</span>
+                    <span>28%</span>
+                </div>
+                <div class="demographic-bar">
+                    <div class="demographic-fill" style="width: 28%;"></div>
+                </div>
+            </div>
+            <div class="demographic-item">
+                <div class="demographic-label">
+                    <span>25-34</span>
+                    <span>42%</span>
+                </div>
+                <div class="demographic-bar">
+                    <div class="demographic-fill" style="width: 42%;"></div>
+                </div>
+            </div>
+            <div class="demographic-item">
+                <div class="demographic-label">
+                    <span>35-44</span>
+                    <span>18%</span>
+                </div>
+                <div class="demographic-bar">
+                    <div class="demographic-fill" style="width: 18%;"></div>
+                </div>
+            </div>
+            <div class="demographic-item">
+                <div class="demographic-label">
+                    <span>45-54</span>
+                    <span>8%</span>
+                </div>
+                <div class="demographic-bar">
+                    <div class="demographic-fill" style="width: 8%;"></div>
+                </div>
+            </div>
+            <div class="demographic-item">
+                <div class="demographic-label">
+                    <span>55+</span>
+                    <span>4%</span>
+                </div>
+                <div class="demographic-bar">
+                    <div class="demographic-fill" style="width: 4%;"></div>
+                </div>
+            </div>
+            <div class="demographic-item">
+                <div class="demographic-label">
+                    <span>Mobile Users</span>
+                    <span>72%</span>
+                </div>
+                <div class="demographic-bar">
+                    <div class="demographic-fill" style="width: 72%;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter" id="newsletter">
+        <h2>Subscribe to Our Newsletter</h2>
+        <p>Get the latest episodes, behind-the-scenes content, and exclusive updates delivered to your inbox.</p>
+        <form action="mailto:james@hicksnewmedia.com" method="POST" enctype="text/plain" class="newsletter-form">
+            <input type="email" class="newsletter-input" name="email" placeholder="Enter your email" required>
+            <button type="submit" class="newsletter-btn">Subscribe</button>
+        </form>
+    </section>
+
+    <!-- Sponsors -->
+    <section class="sponsors">
+        <h2>Our Sponsors</h2>
+        <div class="sponsor-grid">
+            <div class="sponsor-card">
+                <div class="sponsor-logo"><i class="fas fa-laptop"></i></div>
+                <h3 class="sponsor-name">TechFlow</h3>
+                <p class="sponsor-desc">Innovative software solutions for digital businesses.</p>
+                <a href="https://techflow.example.com" class="sponsor-link">Learn More</a>
+            </div>
+            <div class="sponsor-card">
+                <div class="sponsor-logo"><i class="fas fa-cloud"></i></div>
+                <h3 class="sponsor-name">CloudVerse</h3>
+                <p class="sponsor-desc">Cloud infrastructure and hosting services.</p>
+                <a href="https://cloudverse.example.com" class="sponsor-link">Learn More</a>
+            </div>
+            <div class="sponsor-card">
+                <div class="sponsor-logo"><i class="fas fa-graduation-cap"></i></div>
+                <h3 class="sponsor-name">SkillHub Academy</h3>
+                <p class="sponsor-desc">Online courses for digital skills and technology training.</p>
+                <a href="https://skillhub.example.com" class="sponsor-link">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Episodes -->
+    <section class="episodes" id="episodes">
+        <h2>Latest Episodes</h2>
+        <div class="episode-controls">
+            <input type="text" class="search-box" id="episodeSearch" placeholder="Search episodes...">
+        </div>
+        <div class="episodes-grid" id="episodesGrid">
+            <!-- Episodes will be dynamically populated -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">The Digital Collective</div>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#episodes">Episodes</a>
+                <a href="#hosts">Hosts</a>
+                <a href="#community">Community</a>
+                <a href="#merch">Shop</a>
+                <a href="https://hicksnewmedia.com">hicksnewmedia.com</a>
+            </div>
+            <div class="social-icons">
+                <a href="https://twitter.com" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://instagram.com" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://youtube.com" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://linkedin.com" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 The Digital Collective. All rights reserved. | Hosted by hicksnewmedia.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Configuration
+        const SHOW_CONFIG = {
+            name: 'The Digital Collective',
+            tagline: 'The business of technology',
+            description: 'Thoughtful conversations at the intersection of tech, entrepreneurship, and the future of work.',
+            email: 'james@hicksnewmedia.com',
+            contactEmail: 'james@hicksnewmedia.com',
+            sponsorEmail: 'james@hicksnewmedia.com',
+            channelUrl: 'https://www.youtube.com/@jameshicks',
+            subscribeUrl: 'https://www.youtube.com/@jameshicks?sub_confirmation=1',
+
+            // ── PODCAST DISTRIBUTION ──────────────────────────────────────
+            // Add URLs when show is listed on each platform
+            rssUrl: '',          // RSS feed URL — episodes auto-load when set
+            podcastUrls: {
+                apple:   '',     // Apple Podcasts URL
+                spotify: '',     // Spotify URL
+                amazon:  '',     // Amazon Music URL
+                iheart:  '',     // iHeart Radio URL
+                youtube: 'https://www.youtube.com/@jameshicks',
+                google:  '',
+            },
+
+            // ── VIDEOS ───────────────────────────────────────────────────
+            // Add YouTube video IDs here. Get the ID from the URL after ?v=
+            // e.g. youtube.com/watch?v=ABC123  →  id: "ABC123"
+            videos: [
+                // { id: "VIDEO_ID", title: "Episode Title", date: "Mar 2026", description: "", featured: true }
+            ],
+
+            // ── MERCH ────────────────────────────────────────────────────
+            merch: [
+                { name: 'Focused Zip Hoodie (Grey)',    url: 'https://hnmmerch.store/products/focused-zip-hoodie-grey',                    icon: '🧥' },
+                { name: 'Focused Knit Sweater (Bleach)',url: 'https://hnmmerch.store/products/focused-knit-sweater-bleach',                icon: '🧶' },
+                { name: 'Focused Hat',                  url: 'https://hnmmerch.store/products/focused-hat',                               icon: '🧢' },
+                { name: 'Focused Notebook',             url: 'https://hnmmerch.store/products/focused-notebook',                          icon: '📓' },
+                { name: 'Focused Water Bottle (White)', url: 'https://hnmmerch.store/products/focused-stainless-steel-water-bottle-white', icon: '🍶' },
+                { name: 'Focused Mug',                  url: 'https://hnmmerch.store/products/focused-mug',                               icon: '☕' },
+            ],
+
+            // ── HOSTS ────────────────────────────────────────────────────
+            hosts: [
+                {
+                    name: 'James Hicks',
+                    role: 'Host & Creator',
+                    bio: 'Founder of HicksNewMedia. Technologist, digital strategist, and creator dedicated to making technology accessible and empowering to all communities.',
+                    avatar: 'JH',
+                    youtube: 'https://www.youtube.com/@jameshicks',
+                    social: { twitter: '', instagram: '', linkedin: '' }
+                },
+                {
+                    name: 'Caren',
+                    role: 'Co-Host',
+                    bio: 'Technology professional and business strategist with deep expertise in digital transformation and the strategic decisions that define how organizations thrive in the digital era.',
+                    avatar: 'C',
+                    social: { twitter: '', instagram: '', linkedin: '' }
+                }
+            ],
+
+            // ── REVIEWS ──────────────────────────────────────────────────
+            reviews: [
+                { author: 'Jordan T.',  stars: 5, text: 'The Digital Collective cuts through the hype and gets to what actually matters in tech. James and Caren are must-listen.', platform: 'YouTube' },
+                { author: 'Sam K.',     stars: 5, text: 'James and Caren bring such depth and nuance to complex topics. I\'ve learned so much from this show.', platform: 'YouTube' },
+                { author: 'Denise W.', stars: 5, text: 'I recommend this show to every entrepreneur in my network. The business-of-tech angle is exactly what\'s missing from the conversation.', platform: 'YouTube' },
+                { author: 'Andre M.',  stars: 5, text: 'Practical, insightful, and genuinely entertaining. The Digital Collective is in a class of its own.', platform: 'YouTube' },
+            ],
+        };
+
+        // Hamburger Menu
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        if (hamburger) {
+            hamburger.addEventListener('click', () => navLinks.classList.toggle('active'));
+        }
+
+        // Tab Functionality
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Audio Player
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playBtn = document.getElementById('playBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressFill = document.getElementById('progressFill');
+        const currentTimeEl = document.getElementById('currentTime');
+        const durationEl = document.getElementById('duration');
+
+        if (playBtn) {
+            playBtn.addEventListener('click', () => {
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                } else {
+                    audioPlayer.pause();
+                    playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                }
+            });
+
+            audioPlayer.addEventListener('timeupdate', () => {
+                const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                progressFill.style.width = percent + '%';
+                currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+                durationEl.textContent = formatTime(audioPlayer.duration);
+            });
+
+            progressBar.addEventListener('click', (e) => {
+                const rect = progressBar.getBoundingClientRect();
+                const percent = (e.clientX - rect.left) / rect.width;
+                audioPlayer.currentTime = percent * audioPlayer.duration;
+            });
+        }
+
+        // Speed Controls
+        document.querySelectorAll('.speed-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                audioPlayer.playbackRate = parseFloat(btn.getAttribute('data-speed'));
+            });
+        });
+
+        // Voice Recording
+        let mediaRecorder;
+        let recordedChunks = [];
+        const recordBtn = document.getElementById('recordBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const timer = document.getElementById('timer');
+        const recordStatus = document.getElementById('recordStatus');
+        const audioPlayback = document.getElementById('audioPlayback');
+        const MAX_RECORDING_TIME = 90000;
+
+        if (recordBtn) {
+            recordBtn.addEventListener('click', async () => {
+                recordedChunks = [];
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    mediaRecorder.ondataavailable = (e) => recordedChunks.push(e.data);
+                    mediaRecorder.start();
+                    recordBtn.disabled = true;
+                    stopBtn.disabled = false;
+                    timer.style.display = 'block';
+                    recordStatus.textContent = 'Recording...';
+                    
+                    let elapsed = 0;
+                    const interval = setInterval(() => {
+                        elapsed += 1000;
+                        const seconds = Math.floor((elapsed / 1000) % 60);
+                        const minutes = Math.floor(elapsed / 60000);
+                        timer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} / 01:30`;
+                        if (elapsed >= MAX_RECORDING_TIME) {
+                            clearInterval(interval);
+                            stopBtn.click();
+                        }
+                    }, 1000);
+                    stopBtn.dataset.interval = interval;
+                } catch (error) {
+                    recordStatus.textContent = 'Error accessing microphone. Please check permissions.';
+                }
+            });
+
+            stopBtn.addEventListener('click', () => {
+                mediaRecorder.stop();
+                recordBtn.disabled = false;
+                stopBtn.disabled = true;
+                timer.style.display = 'none';
+                recordStatus.textContent = 'Recording complete. Play back or submit below.';
+                clearInterval(parseInt(stopBtn.dataset.interval));
+
+                mediaRecorder.onstop = () => {
+                    const blob = new Blob(recordedChunks, { type: 'audio/webm' });
+                    const url = URL.createObjectURL(blob);
+                    audioPlayback.innerHTML = `<audio controls style="width: 100%;"><source src="${url}" type="audio/webm">Your browser does not support the audio element.</audio>`;
+                };
+            });
+        }
+
+        // Populate Episodes from YouTube video IDs
+        const episodesGrid = document.getElementById('episodesGrid');
+        if (episodesGrid) {
+            const videos = SHOW_CONFIG.videos || [];
+            if (!videos.length) {
+                episodesGrid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px 20px;opacity:0.55">
+                    <i class="fab fa-youtube" style="font-size:2.5rem;display:block;margin-bottom:12px"></i>
+                    <p style="font-size:0.95rem">No episodes added yet.</p>
+                    <p style="font-size:0.82rem;margin-top:6px">Add YouTube video IDs to <strong>SHOW_CONFIG.videos</strong> to populate this section, or use the Show Manager.</p>
+                </div>`;
+            } else {
+                videos.forEach(video => {
+                    const card = document.createElement('div');
+                    card.className = `episode-card${video.featured ? ' featured' : ''}`;
+                    card.onclick = () => {
+                        const iframe = document.querySelector('.video-player iframe, #mainVideoPlayer');
+                        if (iframe) { iframe.src = `https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0`; }
+                        document.getElementById('episodes').scrollIntoView({ behavior: 'smooth' });
+                    };
+                    card.innerHTML = `
+                        <div class="episode-image" style="position:relative;overflow:hidden;padding:0">
+                            <img src="https://img.youtube.com/vi/${video.id}/hqdefault.jpg" alt="${video.title}"
+                                 style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                            ${video.featured ? '<div style="position:absolute;top:8px;left:8px;background:#F48022;color:#fff;font-size:0.6rem;font-weight:700;padding:3px 8px;border-radius:3px">FEATURED</div>' : ''}
+                        </div>
+                        <div class="episode-info">
+                            <h3 class="episode-title">${video.title}</h3>
+                            <div class="episode-date">${video.date || ''}</div>
+                            ${video.description ? `<p class="episode-desc">${video.description}</p>` : ''}
+                        </div>`;
+                    episodesGrid.appendChild(card);
+                });
+            }
+        }
+
+        // Episode Search
+        const episodeSearch = document.getElementById('episodeSearch');
+        if (episodeSearch) {
+            episodeSearch.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                document.querySelectorAll('.episode-card').forEach(card => {
+                    const titleEl = card.querySelector('.episode-title');
+                    const title = titleEl ? titleEl.textContent.toLowerCase() : '';
+                    card.style.display = title.includes(term) ? '' : 'none';
+                });
+            });
+        }
+
+        // Time Formatter
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+    </script>
+</body>
+</html>

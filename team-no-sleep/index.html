@@ -1,0 +1,2089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team NO Sleep | The Social Impact of Sports</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #a97f34;
+            --bg: #221d16;
+            --mid: #3f2b14;
+            --accent: #5d5048;
+            --light: #f5f5f5;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        /* NAVIGATION */
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(34, 29, 22, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid var(--mid);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .subscribe-btn {
+            background: var(--primary);
+            color: var(--bg);
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .subscribe-btn:hover {
+            background: #c9a050;
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        /* HERO SECTION */
+        .hero {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--mid) 0%, var(--bg) 100%);
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            color: var(--primary);
+            letter-spacing: 3px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            color: var(--light);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .hero .meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .hero .description {
+            max-width: 600px;
+            margin: 1.5rem auto;
+            color: #d0d0d0;
+            line-height: 1.8;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 0.8rem 2rem;
+            border: 2px solid var(--primary);
+            background: var(--primary);
+            color: var(--bg);
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .cta-btn:hover {
+            background: transparent;
+            color: var(--primary);
+        }
+
+        .cta-btn.secondary {
+            background: transparent;
+            color: var(--primary);
+        }
+
+        .cta-btn.secondary:hover {
+            background: var(--primary);
+            color: var(--bg);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat-item {
+            background: rgba(93, 80, 72, 0.3);
+            padding: 1.5rem;
+            border-radius: 4px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #aaa;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        .podcast-strip {
+            background: var(--mid);
+            padding: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--primary);
+            border-bottom: 1px solid var(--primary);
+        }
+
+        .podcast-strip h3 {
+            color: var(--light);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .podcast-icons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .podcast-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: rgba(169, 127, 52, 0.1);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: var(--light);
+            font-size: 0.75rem;
+            position: relative;
+        }
+
+        .podcast-icon:hover {
+            background: rgba(169, 127, 52, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .podcast-icon i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .coming-soon {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent);
+            color: var(--light);
+            padding: 0.2rem 0.5rem;
+            font-size: 0.6rem;
+            border-radius: 2px;
+            font-weight: 700;
+        }
+
+        /* MEDIA PLAYER */
+        .media-section {
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tab-toggle {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--mid);
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #aaa;
+            padding: 1rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .video-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .video-player {
+            aspect-ratio: 16/9;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .video-player iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .episode-queue {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .episode-item {
+            background: var(--mid);
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .episode-item:hover {
+            background: rgba(93, 80, 72, 0.6);
+            border-left-color: var(--primary);
+        }
+
+        .episode-item.active {
+            background: var(--primary);
+            color: var(--bg);
+        }
+
+        .episode-item .title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .episode-item .date {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        .audio-player {
+            background: var(--mid);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .audio-player .title {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+
+        .player-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-bar .fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .player-time {
+            font-size: 0.8rem;
+            color: #aaa;
+            min-width: 80px;
+        }
+
+        .player-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .player-btn {
+            background: var(--primary);
+            color: var(--bg);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .player-btn:hover {
+            background: #c9a050;
+            transform: scale(1.1);
+        }
+
+        .player-settings {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .speed-select, .volume-slider {
+            background: var(--accent);
+            color: var(--light);
+            border: 1px solid var(--primary);
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .episode-search {
+            margin-bottom: 2rem;
+        }
+
+        .episode-search input {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--mid);
+            border: 1px solid var(--accent);
+            color: var(--light);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .episode-search input::placeholder {
+            color: #777;
+        }
+
+        .episode-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .episode-card {
+            background: var(--mid);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid var(--accent);
+        }
+
+        .episode-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .episode-card .thumbnail {
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+
+        .episode-card .featured-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary);
+            color: var(--bg);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .episode-card .content {
+            padding: 1.5rem;
+        }
+
+        .episode-card .title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+
+        .episode-card .date {
+            color: #aaa;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .episode-card .description {
+            font-size: 0.9rem;
+            color: #c0c0c0;
+            margin-bottom: 1rem;
+        }
+
+        /* SUBSCRIBE SECTION */
+        .subscribe-platforms {
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, var(--mid) 0%, var(--bg) 100%);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .subscribe-platforms h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .platform-card {
+            background: var(--bg);
+            border: 1px solid var(--accent);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .platform-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .platform-card .icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .platform-card .name {
+            font-weight: 700;
+            color: var(--light);
+            margin-bottom: 1rem;
+        }
+
+        .platform-card button {
+            background: var(--primary);
+            color: var(--bg);
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        .platform-card button:hover {
+            background: #c9a050;
+        }
+
+        .platform-card button:disabled {
+            background: var(--accent);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        /* HOSTS SECTION */
+        .hosts-section {
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hosts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .host-card {
+            background: var(--mid);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--accent);
+            transition: all 0.3s;
+        }
+
+        .host-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .host-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--bg);
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+
+        .host-name {
+            font-weight: 700;
+            color: var(--light);
+            margin-bottom: 0.3rem;
+        }
+
+        .host-role {
+            color: var(--primary);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .host-bio {
+            font-size: 0.9rem;
+            color: #c0c0c0;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+
+        .host-socials {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .host-socials a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background: rgba(169, 127, 52, 0.1);
+            border-radius: 50%;
+            color: var(--primary);
+            transition: all 0.3s;
+        }
+
+        .host-socials a:hover {
+            background: var(--primary);
+            color: var(--bg);
+        }
+
+        /* COMMUNITY SECTION */
+        .community-section {
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, var(--mid) 0%, var(--bg) 100%);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .community-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--mid);
+        }
+
+        .community-tab-btn {
+            background: none;
+            border: none;
+            color: #aaa;
+            padding: 1rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .community-tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .community-tab {
+            display: none;
+        }
+
+        .community-tab.active {
+            display: block;
+        }
+
+        .chat-box {
+            background: var(--bg);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            min-height: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .chat-bubble {
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .chat-bubble.incoming {
+            justify-content: flex-start;
+        }
+
+        .chat-bubble.outgoing {
+            justify-content: flex-end;
+        }
+
+        .bubble-text {
+            padding: 1rem;
+            border-radius: 12px;
+            max-width: 60%;
+            word-wrap: break-word;
+        }
+
+        .chat-bubble.incoming .bubble-text {
+            background: var(--mid);
+            color: #e0e0e0;
+        }
+
+        .chat-bubble.outgoing .bubble-text {
+            background: var(--primary);
+            color: var(--bg);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--mid);
+            border: 1px solid var(--accent);
+            color: var(--light);
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #777;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .form-submit {
+            background: var(--primary);
+            color: var(--bg);
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .form-submit:hover {
+            background: #c9a050;
+        }
+
+        .voice-recorder {
+            background: var(--bg);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .mic-button {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: none;
+            color: var(--bg);
+            font-size: 2rem;
+            cursor: pointer;
+            margin: 1rem auto;
+            transition: all 0.3s;
+        }
+
+        .mic-button:hover {
+            transform: scale(1.1);
+        }
+
+        .mic-button.recording {
+            background: #d32f2f;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .recording-timer {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 1rem 0;
+            font-weight: 700;
+        }
+
+        .audio-playback {
+            background: var(--mid);
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+
+        .audio-playback audio {
+            width: 100%;
+        }
+
+        /* REVIEWS SECTION */
+        .reviews-section {
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .review-card {
+            background: var(--mid);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--accent);
+        }
+
+        .stars {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .review-text {
+            font-style: italic;
+            color: #d0d0d0;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .review-author {
+            color: var(--light);
+            font-weight: 600;
+        }
+
+        .review-platform {
+            color: #aaa;
+            font-size: 0.85rem;
+        }
+
+        .leave-review-btn {
+            background: var(--primary);
+            color: var(--bg);
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .leave-review-btn:hover {
+            background: #c9a050;
+        }
+
+        /* MERCH SECTION */
+        .merch-section {
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, var(--mid) 0%, var(--bg) 100%);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .merch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .merch-card {
+            background: var(--bg);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid var(--accent);
+        }
+
+        .merch-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .merch-image {
+            aspect-ratio: 1/1;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .merch-info {
+            padding: 1.5rem;
+        }
+
+        .merch-name {
+            font-weight: 700;
+            color: var(--light);
+            margin-bottom: 0.5rem;
+        }
+
+        .merch-price {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .shop-btn {
+            background: var(--primary);
+            color: var(--bg);
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        .shop-btn:hover {
+            background: #c9a050;
+        }
+
+        /* ANALYTICS SECTION */
+        .analytics-section {
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--mid);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--accent);
+            text-align: center;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .label {
+            color: #aaa;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .demographics {
+            background: var(--mid);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--accent);
+        }
+
+        .demographic-item {
+            margin-bottom: 2rem;
+        }
+
+        .demographic-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+
+        .demographic-bar {
+            height: 8px;
+            background: var(--accent);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .demographic-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        /* NEWSLETTER SECTION */
+        .newsletter-section {
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, var(--mid) 0%, var(--bg) 100%);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-section h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .newsletter-section p {
+            color: #d0d0d0;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem;
+            background: var(--bg);
+            border: 1px solid var(--accent);
+            color: var(--light);
+            border-radius: 4px;
+        }
+
+        .newsletter-form button {
+            background: var(--primary);
+            color: var(--bg);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: #c9a050;
+        }
+
+        /* SPONSORS SECTION */
+        .sponsors-section {
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .sponsors-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .sponsor-info h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .sponsor-info p {
+            color: #d0d0d0;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .sponsor-form {
+            background: var(--mid);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .sponsors-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .video-container {
+                grid-template-columns: 1fr;
+            }
+
+            .episode-queue {
+                max-height: none;
+            }
+
+            .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--mid);
+            padding: 2rem;
+            border-top: 1px solid var(--accent);
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h4 {
+            color: var(--light);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col a {
+            color: #aaa;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid var(--accent);
+            padding-top: 2rem;
+            color: #777;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- BREADCRUMB BAR -->
+    <div style="background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.07);padding:0.55rem 1.5rem;display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;font-family:'Inter',sans-serif;">
+      <a href="/shows" style="color:#a97f34;text-decoration:none;display:flex;align-items:center;gap:0.4rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 1.5L3 6l4.5 4.5" stroke="#a97f34" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        All Shows
+      </a>
+      <span style="color:rgba(255,255,255,0.2);">·</span>
+      <span style="color:rgba(255,255,255,0.4);">Team NO Sleep</span>
+    </div>
+
+    <!-- STICKY NAV -->
+    <nav>
+        <div class="container">
+            <div class="logo">TNS</div>
+            <ul class="nav-links">
+                <li><a href="#episodes">Episodes</a></li>
+                <li><a href="#hosts">Hosts</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="#merch">Merch</a></li>
+                <li><a href="#analytics">Stats</a></li>
+                <li><a href="#sponsors">Sponsors</a></li>
+            </ul>
+            <button class="subscribe-btn" onclick="subscribeYouTube()">Subscribe</button>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <h1>TEAM NO SLEEP</h1>
+        <div class="tagline">The Social Impact of Sports</div>
+        <div class="meta">
+            <span>3 Hosts</span>
+            <span id="host-count">3 Hosts</span>
+            <span>YouTube Only</span>
+        </div>
+        <div class="description">
+            Exploring the intersection of sports culture and social impact. James, Montell, and Heather dive deep into the conversations that matter.
+        </div>
+        <div class="hero-ctas">
+            <button class="cta-btn" onclick="navigateTo('#episodes')">Watch Episodes</button>
+            <button class="cta-btn secondary" onclick="subscribeYouTube()">Subscribe on YouTube</button>
+        </div>
+
+        <div class="hero-stats">
+            <div class="stat-item">
+                <div class="stat-value" id="stat-subs">12K</div>
+                <div class="stat-label">Subscribers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="stat-views">340K</div>
+                <div class="stat-label">Total Views</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="stat-episodes">24</div>
+                <div class="stat-label">Episodes</div>
+            </div>
+        </div>
+
+        <div class="podcast-strip">
+            <h3>Listen on Podcast Platforms</h3>
+            <div class="podcast-icons">
+                <a class="podcast-icon" href="#" onclick="return false;">
+                    <i class="fas fa-apple"></i>
+                    Apple
+                    <span class="coming-soon">Coming</span>
+                </a>
+                <a class="podcast-icon" href="#" onclick="return false;">
+                    <i class="fab fa-spotify"></i>
+                    Spotify
+                    <span class="coming-soon">Coming</span>
+                </a>
+                <a class="podcast-icon" href="#" onclick="return false;">
+                    <i class="fab fa-amazon"></i>
+                    Amazon
+                    <span class="coming-soon">Coming</span>
+                </a>
+                <a class="podcast-icon" href="#" onclick="return false;">
+                    <i class="fas fa-radio"></i>
+                    iHeart
+                    <span class="coming-soon">Coming</span>
+                </a>
+                <a class="podcast-icon" href="https://www.youtube.com/@jameshicks" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                    YouTube
+                </a>
+                <a class="podcast-icon" href="#" onclick="return false;">
+                    <i class="fas fa-rss"></i>
+                    RSS Feed
+                    <span class="coming-soon">Coming</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- MEDIA SECTION -->
+    <section class="media-section" id="episodes">
+        <div class="tab-toggle">
+            <button class="tab-btn active" onclick="switchTab('video')">📺 Video</button>
+            <button class="tab-btn" onclick="switchTab('audio')">🎧 Audio</button>
+        </div>
+
+        <!-- VIDEO TAB -->
+        <div id="video-tab" class="tab-content active">
+            <div class="video-container">
+                <div class="video-player">
+                    <iframe id="main-player" width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="episode-queue" id="episode-queue">
+                    <div class="episode-item active" onclick="playVideo('dQw4w9WgXcQ')">
+                        <div class="title">Episode 1</div>
+                        <div class="date">Mar 2026</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="episode-search">
+                <input type="text" placeholder="Search episodes..." id="search-input" onkeyup="filterEpisodes()">
+            </div>
+
+            <div class="episode-grid" id="episode-grid">
+                <div class="episode-card">
+                    <div class="thumbnail">🎙️<div class="featured-badge">Featured</div></div>
+                    <div class="content">
+                        <div class="title">Episode 1: Sports & Society</div>
+                        <div class="date">March 2026</div>
+                        <div class="description">James, Montell, and Heather discuss the impact of sports on our communities.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AUDIO TAB -->
+        <div id="audio-tab" class="tab-content">
+            <div class="audio-player">
+                <div class="title" id="audio-title">Audio Coming Soon</div>
+                <div style="color: #aaa; text-align: center; padding: 2rem;">
+                    Audio episodes will be available soon. Subscribe to be notified when they launch!
+                </div>
+            </div>
+
+            <div class="episode-search">
+                <input type="text" placeholder="Search episodes..." id="search-input-audio" onkeyup="filterEpisodes()">
+            </div>
+
+            <div class="episode-grid" id="episode-grid-audio">
+                <div class="episode-card">
+                    <div class="thumbnail">🎙️<div class="featured-badge">Featured</div></div>
+                    <div class="content">
+                        <div class="title">Episode 1: Sports & Society</div>
+                        <div class="date">March 2026</div>
+                        <div class="description">James, Montell, and Heather discuss the impact of sports on our communities.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SUBSCRIBE SECTION -->
+    <section class="subscribe-platforms" id="subscribe-platforms">
+        <h2>Listen Everywhere</h2>
+        <div class="platform-grid">
+            <div class="platform-card">
+                <div class="icon"><i class="fas fa-apple"></i></div>
+                <div class="name">Apple Podcasts</div>
+                <button disabled>Coming Soon</button>
+            </div>
+            <div class="platform-card">
+                <div class="icon"><i class="fab fa-spotify"></i></div>
+                <div class="name">Spotify</div>
+                <button disabled>Coming Soon</button>
+            </div>
+            <div class="platform-card">
+                <div class="icon"><i class="fab fa-amazon"></i></div>
+                <div class="name">Amazon Music</div>
+                <button disabled>Coming Soon</button>
+            </div>
+            <div class="platform-card">
+                <div class="icon"><i class="fas fa-radio"></i></div>
+                <div class="name">iHeart Radio</div>
+                <button disabled>Coming Soon</button>
+            </div>
+            <div class="platform-card">
+                <div class="icon"><i class="fab fa-youtube"></i></div>
+                <div class="name">YouTube Podcasts</div>
+                <button onclick="window.open('https://www.youtube.com/@jameshicks', '_blank')">Subscribe</button>
+            </div>
+            <div class="platform-card">
+                <div class="icon"><i class="fas fa-rss"></i></div>
+                <div class="name">RSS Feed</div>
+                <button disabled>Coming Soon</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOSTS SECTION -->
+    <section class="hosts-section" id="hosts">
+        <h2 class="section-title">Meet the Hosts</h2>
+        <div class="hosts-grid">
+            <div class="host-card">
+                <div class="host-avatar">JH</div>
+                <div class="host-name">James Hicks</div>
+                <div class="host-role">Host & Creator</div>
+                <div class="host-bio">Founder of HicksNewMedia and creative force behind Team NO Sleep. Passionate about sports culture and community impact.</div>
+                <div class="host-socials">
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="host-card">
+                <div class="host-avatar">M</div>
+                <div class="host-name">Montell</div>
+                <div class="host-role">Co-Host</div>
+                <div class="host-bio">Brings energy and insight to every conversation. An expert on sports dynamics and community engagement.</div>
+                <div class="host-socials">
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="host-card">
+                <div class="host-avatar">H</div>
+                <div class="host-name">Heather</div>
+                <div class="host-role">Co-Host</div>
+                <div class="host-bio">Brings critical perspective and thoughtful analysis. Specializes in social impact conversations.</div>
+                <div class="host-socials">
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMMUNITY SECTION -->
+    <section class="community-section" id="community">
+        <h2 class="section-title">Community Hub</h2>
+        <div class="community-tabs">
+            <button class="community-tab-btn active" onclick="switchCommunityTab('fanmail')">💬 Fan Mail</button>
+            <button class="community-tab-btn" onclick="switchCommunityTab('voice')">🎙️ Voice Message</button>
+            <button class="community-tab-btn" onclick="switchCommunityTab('guest')">🎤 Be a Guest</button>
+        </div>
+
+        <!-- FAN MAIL TAB -->
+        <div id="fanmail-tab" class="community-tab active">
+            <div class="chat-box">
+                <div class="chat-bubble incoming">
+                    <div class="bubble-text">Team NO Sleep changed how I think about sports impact!</div>
+                </div>
+                <div class="chat-bubble incoming">
+                    <div class="bubble-text">Love the conversations you all have. Keep it up!</div>
+                </div>
+            </div>
+            <form onsubmit="sendFanMail(event)">
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" id="fanmail-name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea id="fanmail-message" placeholder="Share your thoughts..." required></textarea>
+                </div>
+                <button type="submit" class="form-submit">Send Message</button>
+            </form>
+        </div>
+
+        <!-- VOICE MESSAGE TAB -->
+        <div id="voice-tab" class="community-tab">
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" id="voice-name" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label>Topic</label>
+                <input type="text" id="voice-topic" placeholder="What's your message about?" required>
+            </div>
+            <div class="voice-recorder">
+                <button type="button" class="mic-button" id="record-btn" onclick="toggleRecording()">
+                    <i class="fas fa-microphone"></i>
+                </button>
+                <div class="recording-timer" id="timer" style="display:none;">0:00</div>
+                <div id="audio-playback" style="display:none;" class="audio-playback">
+                    <audio id="recorded-audio" controls></audio>
+                </div>
+                <button type="button" class="form-submit" id="send-voice" style="display:none;" onclick="sendVoiceMessage()">Send Voice Message</button>
+            </div>
+        </div>
+
+        <!-- BE A GUEST TAB -->
+        <div id="guest-tab" class="community-tab">
+            <form onsubmit="sendGuestPitch(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="guest-name" placeholder="Your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="guest-email" placeholder="your@email.com" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Instagram</label>
+                        <input type="text" id="guest-instagram" placeholder="@handle">
+                    </div>
+                    <div class="form-group">
+                        <label>Twitter</label>
+                        <input type="text" id="guest-twitter" placeholder="@handle">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>LinkedIn</label>
+                        <input type="text" id="guest-linkedin" placeholder="linkedin.com/in/...">
+                    </div>
+                    <div class="form-group">
+                        <label>Website</label>
+                        <input type="url" id="guest-website" placeholder="https://yoursite.com">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>What's your expertise?</label>
+                    <input type="text" id="guest-expertise" placeholder="Your area of expertise" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Your Pitch - What would you talk about?</label>
+                    <textarea id="guest-pitch" placeholder="Tell us about your story and what you'd discuss..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Previous Podcast/Media Appearances</label>
+                    <textarea id="guest-appearances" placeholder="List any prior appearances (optional)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Links (YouTube, Website, etc.)</label>
+                    <textarea id="guest-links" placeholder="Relevant links to your work"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Preferred Availability</label>
+                        <select id="guest-availability" required>
+                            <option value="">Select availability...</option>
+                            <option value="Weekdays">Weekdays</option>
+                            <option value="Weekends">Weekends</option>
+                            <option value="Flexible">Flexible</option>
+                            <option value="Online only">Online Only</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Which show?</label>
+                        <select id="guest-show" required>
+                            <option value="">Select show...</option>
+                            <option value="Team NO Sleep">Team NO Sleep</option>
+                            <option value="tek FORUM">tek FORUM</option>
+                            <option value="The Digital Collective">The Digital Collective</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="form-submit">Submit Pitch</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- REVIEWS SECTION -->
+    <section class="reviews-section" id="reviews">
+        <h2 class="section-title">What Listeners Say</h2>
+        <div class="review-grid">
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <div class="review-text">"Team NO Sleep brings conversations that matter. Every episode makes me think differently about sports and community."</div>
+                <div class="review-author">Marcus T.</div>
+                <div class="review-platform">YouTube</div>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <div class="review-text">"James, Montell, and Heather have amazing chemistry. The energy is infectious and the topics are always relevant."</div>
+                <div class="review-author">Sarah K.</div>
+                <div class="review-platform">YouTube</div>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <div class="review-text">"Finally a show that digs deep into the real impact of sports on society. Highly recommend!"</div>
+                <div class="review-author">David M.</div>
+                <div class="review-platform">YouTube</div>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <div class="review-text">"The chemistry between hosts is unmatched. I learn something new every episode."</div>
+                <div class="review-author">Jessica L.</div>
+                <div class="review-platform">YouTube</div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 2rem;">
+            <button class="leave-review-btn" onclick="window.open('https://www.youtube.com/@jameshicks', '_blank')">Leave a Review</button>
+        </div>
+    </section>
+
+    <!-- MERCH SECTION -->
+    <section class="merch-section" id="merch">
+        <h2 class="section-title">Official Merch</h2>
+        <div class="merch-grid">
+            <div class="merch-card">
+                <div class="merch-image">🧢</div>
+                <div class="merch-info">
+                    <div class="merch-name">Bucket Hat</div>
+                    <div class="merch-price">$35</div>
+                    <button class="shop-btn" onclick="window.open('https://hnmmerch.store/products/team-no-sleep-bucket-hat', '_blank')">Shop Now</button>
+                </div>
+            </div>
+            <div class="merch-card">
+                <div class="merch-image">👕</div>
+                <div class="merch-info">
+                    <div class="merch-name">T-Shirt</div>
+                    <div class="merch-price">$25</div>
+                    <button class="shop-btn" onclick="window.open('https://hnmmerch.store/products/team-no-sleep-t-shirt', '_blank')">Shop Now</button>
+                </div>
+            </div>
+            <div class="merch-card">
+                <div class="merch-image">🧥</div>
+                <div class="merch-info">
+                    <div class="merch-name">Zipper Hoodie</div>
+                    <div class="merch-price">$55</div>
+                    <button class="shop-btn" onclick="window.open('https://hnmmerch.store/products/team-no-sleep-zipper-hoodie', '_blank')">Shop Now</button>
+                </div>
+            </div>
+            <div class="merch-card">
+                <div class="merch-image">🧥</div>
+                <div class="merch-info">
+                    <div class="merch-name">Be Useful Hoodie</div>
+                    <div class="merch-price">$55</div>
+                    <button class="shop-btn" onclick="window.open('https://hnmmerch.store/products/be-useful-hoodie', '_blank')">Shop Now</button>
+                </div>
+            </div>
+            <div class="merch-card">
+                <div class="merch-image">🥃</div>
+                <div class="merch-info">
+                    <div class="merch-name">Glass</div>
+                    <div class="merch-price">$15</div>
+                    <button class="shop-btn" onclick="window.open('https://hnmmerch.store/products/team-no-sleep-glass', '_blank')">Shop Now</button>
+                </div>
+            </div>
+            <div class="merch-card">
+                <div class="merch-image">🧢</div>
+                <div class="merch-info">
+                    <div class="merch-name">Snapback Hat</div>
+                    <div class="merch-price">$30</div>
+                    <button class="shop-btn" onclick="window.open('https://hnmmerch.store/products/team-no-sleep-snapback-hat', '_blank')">Shop Now</button>
+                </div>
+            </div>
+            <div class="merch-card">
+                <div class="merch-image">🧥</div>
+                <div class="merch-info">
+                    <div class="merch-name">Hoodie</div>
+                    <div class="merch-price">$50</div>
+                    <button class="shop-btn" onclick="window.open('https://hnmmerch.store/products/team-no-sleep-hoodie', '_blank')">Shop Now</button>
+                </div>
+            </div>
+            <div class="merch-card">
+                <div class="merch-image">👕</div>
+                <div class="merch-info">
+                    <div class="merch-name">Protect Our Players T-Shirt</div>
+                    <div class="merch-price">$25</div>
+                    <button class="shop-btn" onclick="window.open('https://hnmmerch.store/products/protect-our-players-t-shirt', '_blank')">Shop Now</button>
+                </div>
+            </div>
+            <div class="merch-card">
+                <div class="merch-image">🧥</div>
+                <div class="merch-info">
+                    <div class="merch-name">Protect Our Players Hoodie</div>
+                    <div class="merch-price">$55</div>
+                    <button class="shop-btn" onclick="window.open('https://hnmmerch.store/products/protect-our-players-hoodie', '_blank')">Shop Now</button>
+                </div>
+            </div>
+            <div class="merch-card">
+                <div class="merch-image">💪</div>
+                <div class="merch-info">
+                    <div class="merch-name">Grit</div>
+                    <div class="merch-price">$20</div>
+                    <button class="shop-btn" onclick="window.open('https://hnmmerch.store/products/grit', '_blank')">Shop Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ANALYTICS SECTION -->
+    <section class="analytics-section" id="analytics">
+        <h2 class="section-title">By The Numbers</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="value" id="analytics-subs">12K</div>
+                <div class="label">Subscribers</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="analytics-views">340K</div>
+                <div class="label">Total Views</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="analytics-hours">2.1K</div>
+                <div class="label">Watch Hours</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="analytics-duration">5m 42s</div>
+                <div class="label">Avg View Duration</div>
+            </div>
+        </div>
+
+        <div class="demographics">
+            <h3 style="color: var(--light); margin-bottom: 2rem;">Audience Demographics</h3>
+            <div class="demographic-item">
+                <div class="demographic-label">
+                    <span>18-24</span>
+                    <span>28%</span>
+                </div>
+                <div class="demographic-bar">
+                    <div class="demographic-fill" style="width: 28%;"></div>
+                </div>
+            </div>
+            <div class="demographic-item">
+                <div class="demographic-label">
+                    <span>25-34</span>
+                    <span>42%</span>
+                </div>
+                <div class="demographic-bar">
+                    <div class="demographic-fill" style="width: 42%;"></div>
+                </div>
+            </div>
+            <div class="demographic-item">
+                <div class="demographic-label">
+                    <span>35-44</span>
+                    <span>20%</span>
+                </div>
+                <div class="demographic-bar">
+                    <div class="demographic-fill" style="width: 20%;"></div>
+                </div>
+            </div>
+            <div class="demographic-item">
+                <div class="demographic-label">
+                    <span>45+</span>
+                    <span>10%</span>
+                </div>
+                <div class="demographic-bar">
+                    <div class="demographic-fill" style="width: 10%;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER SECTION -->
+    <section class="newsletter-section" id="newsletter">
+        <h2>Join the Insider List</h2>
+        <p>Get exclusive updates, behind-the-scenes content, and early access to new episodes.</p>
+        <form onsubmit="subscribeNewsletter(event)">
+            <div class="newsletter-form">
+                <input type="email" id="newsletter-email" placeholder="your@email.com" required>
+                <button type="submit">Subscribe</button>
+            </div>
+        </form>
+        <p style="font-size: 0.85rem; margin-top: 1rem; color: #999;">Connect Mailchimp or ConvertKit — update NEWSLETTER_URL in config</p>
+    </section>
+
+    <!-- SPONSORS SECTION -->
+    <section class="sponsors-section" id="sponsors">
+        <div class="sponsors-content">
+            <div class="sponsor-info">
+                <h3>Become a Sponsor</h3>
+                <p>Team NO Sleep reaches thousands of engaged listeners interested in sports culture and social impact. Partner with us to amplify your message.</p>
+                <p><strong>Sponsorship includes:</strong></p>
+                <ul style="list-style: disc; margin-left: 1.5rem; color: #d0d0d0;">
+                    <li>Host reads during episodes</li>
+                    <li>Logo placement on show page</li>
+                    <li>Social media mentions</li>
+                    <li>Email feature to subscribers</li>
+                </ul>
+            </div>
+            <div class="sponsor-form">
+                <form onsubmit="submitSponsorInquiry(event)">
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <input type="text" id="sponsor-company" placeholder="Your company" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Email</label>
+                        <input type="email" id="sponsor-email" placeholder="contact@company.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" id="sponsor-phone" placeholder="(555) 123-4567">
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea id="sponsor-message" placeholder="Tell us about your sponsorship interest..." required></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Send Inquiry</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4 style="color: var(--primary);">Team NO Sleep</h4>
+                <p style="color: #aaa; margin-bottom: 1rem;">The social impact of sports</p>
+                <ul>
+                    <li><a href="https://www.youtube.com/@jameshicks" target="_blank">YouTube Channel</a></li>
+                    <li><a href="https://hnmmerch.store" target="_blank">Shop Merch</a></li>
+                    <li><a href="#" onclick="navigateTo('#contact')">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#episodes">Episodes</a></li>
+                    <li><a href="#hosts">Hosts</a></li>
+                    <li><a href="#community">Community</a></li>
+                    <li><a href="#merch">Merch</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+                    <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+                    <li><a href="mailto:james@hicksnewmedia.com">Email</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Network</h4>
+                <p style="color: #aaa; margin-bottom: 1rem;">Part of HicksNewMedia network</p>
+                <ul>
+                    <li><a href="#">tek FORUM</a></li>
+                    <li><a href="#">The Digital Collective</a></li>
+                    <li><a href="#">HNM Studios</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 HicksNewMedia. All rights reserved. | <a href="#" style="color: var(--primary);">Privacy Policy</a> | <a href="#" style="color: var(--primary);">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Configuration
+        const SHOW_CONFIG = {
+            name: "Team NO Sleep",
+            tagline: "The Social Impact of Sports",
+            description: "Exploring the intersection of sports culture and social impact. James, Montell, and Heather dive deep into the conversations that matter.",
+            channelUrl: "https://www.youtube.com/@jameshicks",
+            subscribeUrl: "https://www.youtube.com/@jameshicks?sub_confirmation=1",
+            sponsorEmail: "james@hicksnewmedia.com",
+            contactEmail: "james@hicksnewmedia.com",
+            rssUrl: "",
+            podcastUrls: {
+                apple: "",
+                spotify: "",
+                amazon: "",
+                iheart: "",
+                youtube: "https://www.youtube.com/@jameshicks",
+                google: "",
+            },
+            videos: [],
+            hosts: [
+                { name: "James Hicks", role: "Host & Creator", bio: "Founder of HicksNewMedia", avatar: "JH" },
+                { name: "Montell", role: "Co-Host", bio: "Sports dynamics expert", avatar: "M" },
+                { name: "Heather", role: "Co-Host", bio: "Social impact specialist", avatar: "H" },
+            ],
+            merch: [
+                { name: "Bucket Hat", price: "$35", icon: "🧢", url: "https://hnmmerch.store/products/team-no-sleep-bucket-hat" },
+                { name: "T-Shirt", price: "$25", icon: "👕", url: "https://hnmmerch.store/products/team-no-sleep-t-shirt" },
+                { name: "Zipper Hoodie", price: "$55", icon: "🧥", url: "https://hnmmerch.store/products/team-no-sleep-zipper-hoodie" },
+                { name: "Be Useful Hoodie", price: "$55", icon: "🧥", url: "https://hnmmerch.store/products/be-useful-hoodie" },
+                { name: "Glass", price: "$15", icon: "🥃", url: "https://hnmmerch.store/products/team-no-sleep-glass" },
+                { name: "Snapback Hat", price: "$30", icon: "🧢", url: "https://hnmmerch.store/products/team-no-sleep-snapback-hat" },
+                { name: "Hoodie", price: "$50", icon: "🧥", url: "https://hnmmerch.store/products/team-no-sleep-hoodie" },
+                { name: "Protect Our Players T-Shirt", price: "$25", icon: "👕", url: "https://hnmmerch.store/products/protect-our-players-t-shirt" },
+                { name: "Protect Our Players Hoodie", price: "$55", icon: "🧥", url: "https://hnmmerch.store/products/protect-our-players-hoodie" },
+                { name: "Grit", price: "$20", icon: "💪", url: "https://hnmmerch.store/products/grit" },
+            ],
+            reviews: [
+                { name: "Marcus T.", text: "Team NO Sleep brings conversations that matter. Every episode makes me think differently about sports and community.", stars: 5, platform: "YouTube" },
+                { name: "Sarah K.", text: "James, Montell, and Heather have amazing chemistry. The energy is infectious and the topics are always relevant.", stars: 5, platform: "YouTube" },
+                { name: "David M.", text: "Finally a show that digs deep into the real impact of sports on society. Highly recommend!", stars: 5, platform: "YouTube" },
+                { name: "Jessica L.", text: "The chemistry between hosts is unmatched. I learn something new every episode.", stars: 5, platform: "YouTube" },
+            ],
+        };
+
+        const ANALYTICS_DATA = {
+            subscribers: "12K",
+            totalViews: "340K",
+            watchHours: "2.1K",
+            avgViewDur: "5m 42s",
+        };
+
+        let mediaRecorder;
+        let recordedChunks = [];
+        let isRecording = false;
+        let recordingSeconds = 0;
+        let recordingTimer;
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tab + '-tab').classList.add('active');
+        }
+
+        function switchCommunityTab(tab) {
+            document.querySelectorAll('.community-tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.community-tab').forEach(content => content.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tab + '-tab').classList.add('active');
+        }
+
+        function playVideo(id) {
+            document.getElementById('main-player').src = `https://www.youtube.com/embed/${id}`;
+            document.querySelectorAll('.episode-item').forEach(item => item.classList.remove('active'));
+            event.target.closest('.episode-item').classList.add('active');
+        }
+
+        function filterEpisodes() {
+            // Filter episodes based on search input
+        }
+
+        function subscribeYouTube() {
+            window.open(SHOW_CONFIG.subscribeUrl, '_blank');
+        }
+
+        function navigateTo(id) {
+            document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function sendFanMail(e) {
+            e.preventDefault();
+            const name = document.getElementById('fanmail-name').value;
+            const message = document.getElementById('fanmail-message').value;
+            const mailto = `mailto:${SHOW_CONFIG.contactEmail}?subject=Fan Mail — Team NO Sleep&body=Name: ${encodeURIComponent(name)}%0A%0AMessage:%0A${encodeURIComponent(message)}`;
+            window.location.href = mailto;
+        }
+
+        function toggleRecording() {
+            if (!isRecording) {
+                startRecording();
+            } else {
+                stopRecording();
+            }
+        }
+
+        function startRecording() {
+            navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+                mediaRecorder = new MediaRecorder(stream);
+                recordedChunks = [];
+                mediaRecorder.ondataavailable = e => recordedChunks.push(e.data);
+                mediaRecorder.start();
+                isRecording = true;
+                recordingSeconds = 0;
+
+                document.getElementById('record-btn').classList.add('recording');
+                document.getElementById('timer').style.display = 'block';
+                document.getElementById('timer').textContent = '0:00';
+
+                recordingTimer = setInterval(() => {
+                    recordingSeconds++;
+                    const min = Math.floor(recordingSeconds / 60);
+                    const sec = recordingSeconds % 60;
+                    document.getElementById('timer').textContent = `${min}:${sec < 10 ? '0' : ''}${sec}`;
+                    if (recordingSeconds >= 90) stopRecording();
+                }, 1000);
+            }).catch(err => {
+                alert("Microphone access denied or not supported in your browser.");
+            });
+        }
+
+        function stopRecording() {
+            if (!mediaRecorder) return;
+            mediaRecorder.stop();
+            isRecording = false;
+            clearInterval(recordingTimer);
+            document.getElementById('record-btn').classList.remove('recording');
+
+            mediaRecorder.onstop = () => {
+                const blob = new Blob(recordedChunks, { type: 'audio/webm' });
+                const url = URL.createObjectURL(blob);
+                document.getElementById('recorded-audio').src = url;
+                document.getElementById('audio-playback').style.display = 'block';
+                document.getElementById('send-voice').style.display = 'block';
+                recordedChunks = [];
+            };
+        }
+
+        function sendVoiceMessage() {
+            const name = document.getElementById('voice-name').value;
+            const topic = document.getElementById('voice-topic').value;
+            const mailto = `mailto:${SHOW_CONFIG.contactEmail}?subject=Voice Message — Team NO Sleep&body=Name: ${encodeURIComponent(name)}%0ATopic: ${encodeURIComponent(topic)}%0A%0AI've attached my voice message below.`;
+            window.location.href = mailto;
+            // Note: Auto-download not possible with mailto, user will handle attachment manually
+        }
+
+        function sendGuestPitch(e) {
+            e.preventDefault();
+            const name = document.getElementById('guest-name').value;
+            const email = document.getElementById('guest-email').value;
+            const instagram = document.getElementById('guest-instagram').value;
+            const twitter = document.getElementById('guest-twitter').value;
+            const linkedin = document.getElementById('guest-linkedin').value;
+            const website = document.getElementById('guest-website').value;
+            const expertise = document.getElementById('guest-expertise').value;
+            const pitch = document.getElementById('guest-pitch').value;
+            const appearances = document.getElementById('guest-appearances').value;
+            const links = document.getElementById('guest-links').value;
+            const availability = document.getElementById('guest-availability').value;
+            const show = document.getElementById('guest-show').value;
+
+            const body = `Name: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0A%0AShow: ${encodeURIComponent(show)}%0AAvailability: ${encodeURIComponent(availability)}%0A%0AExpertise:%0A${encodeURIComponent(expertise)}%0A%0APitch:%0A${encodeURIComponent(pitch)}%0A%0APrevious Appearances:%0A${encodeURIComponent(appearances)}%0A%0ASocial Handles:%0AInstagram: ${encodeURIComponent(instagram)}%0ATwitter: ${encodeURIComponent(twitter)}%0ALinkedIn: ${encodeURIComponent(linkedin)}%0AWebsite: ${encodeURIComponent(website)}%0A%0ALinks:%0A${encodeURIComponent(links)}`;
+
+            const mailto = `mailto:${SHOW_CONFIG.contactEmail}?subject=Guest Pitch — ${encodeURIComponent(show)}&body=${body}`;
+            window.location.href = mailto;
+        }
+
+        function subscribeNewsletter(e) {
+            e.preventDefault();
+            const email = document.getElementById('newsletter-email').value;
+            const mailto = `mailto:${SHOW_CONFIG.contactEmail}?subject=Newsletter Signup — Team NO Sleep&body=Email: ${encodeURIComponent(email)}%0A%0DPlease add me to the Team NO Sleep newsletter.`;
+            window.location.href = mailto;
+        }
+
+        function submitSponsorInquiry(e) {
+            e.preventDefault();
+            const company = document.getElementById('sponsor-company').value;
+            const email = document.getElementById('sponsor-email').value;
+            const phone = document.getElementById('sponsor-phone').value;
+            const message = document.getElementById('sponsor-message').value;
+
+            const body = `Company: ${encodeURIComponent(company)}%0AEmail: ${encodeURIComponent(email)}%0APhone: ${encodeURIComponent(phone)}%0A%0AMessage:%0A${encodeURIComponent(message)}`;
+            const mailto = `mailto:${SHOW_CONFIG.sponsorEmail}?subject=Sponsorship Inquiry — Team NO Sleep&body=${body}`;
+            window.location.href = mailto;
+        }
+    </script>
+</body>
+</html>
